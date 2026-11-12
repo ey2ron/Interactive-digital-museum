@@ -13,12 +13,20 @@
   <a class="skip" href="#collection">Skip to the artworks</a>
   <div id="stage" aria-label="3D gallery walkthrough"></div>
   <div class="vignette"></div>
-  <header><a class="brand" href="#" aria-label="Return to entrance">WANEELLA</a><span class="edition">A DIGITAL GALLERY · VOL. 01</span><div class="header-actions"><button id="toggle-roam" type="button" aria-pressed="false" title="Scroll freely along the gallery path" disabled>Free roam</button><button id="open-collection">The collection <span>↗</span></button></div></header>
+  <header><a class="brand" href="#" aria-label="Return to entrance">WANEELLA</a><span class="edition">A DIGITAL GALLERY · VOL. 01</span><div class="header-actions"><button id="toggle-roam" type="button" aria-pressed="false" title="Explore with WASD and mouse look" disabled>Free roam</button><button id="open-collection">The collection <span>↗</span></button></div></header>
   <main id="tour" aria-label="Scroll to explore the gallery">
     <section class="intro" id="intro"><p class="eyebrow">SIXTEEN WORKS</p><h1>After<br><em>hours.</em></h1><p class="intro-copy">A quiet place for luminous worlds.<br>Take your time. Let the gallery unfold.</p><button id="enter">Enter the gallery <span>↓</span></button></section>
     <section class="ending" id="ending"><p class="eyebrow">THE END OF THIS VISIT</p><h2>Stay a little<br><em>longer.</em></h2><p>There is always another detail to find.</p><button id="restart">Return to the entrance ↖</button></section>
   </main>
   <aside id="art-caption" aria-label="Current artwork details" aria-live="polite" tabindex="0" inert><span class="caption-rule"></span><p class="eyebrow" id="art-number"></p><h2 id="art-title"></h2><p class="caption-artist">Waneella</p><p id="art-description"></p><p id="art-description-credit" class="description-credit"></p><button id="view-current-art" type="button">View artwork & details ↗</button></aside>
+  <aside id="roam-help" aria-label="Free roam controls" hidden>
+    <p class="roam-desktop-help">WASD to move &middot; Mouse to look &middot; E to view artwork</p>
+    <p class="roam-touch-help">Left joystick to move &middot; Drag right side to look<br>Tap a painting to view it</p>
+    <button id="resume-roam" type="button">Click to look around</button>
+    <button id="exit-roam" type="button">Return to nearest portrait <span>Esc</span></button>
+    <div id="roam-joystick" role="group" aria-label="Movement joystick: drag to walk"><span></span></div>
+  </aside>
+  <span id="roam-reticle" aria-hidden="true" hidden></span>
   <p id="gallery-status" class="sr-only" role="status"></p>
   <footer><span id="scroll-hint">SCROLL TO EXPLORE <span>↓</span></span><div class="progress-wrap"><span id="progress-label" aria-hidden="true">00</span><div id="checkpoint-window" aria-describedby="checkpoint-help"><div class="progress-track"><div id="progress-fill"></div><nav id="checkpoints" aria-label="Entrance and all sixteen portrait checkpoints"></nav></div></div><span aria-hidden="true">100</span></div><button id="collection-footer">16 WORKS · VIEW INDEX ↗</button><span id="checkpoint-help">Swipe the bar to see all portraits</span></footer>
   <section id="loading" role="status"><div class="loading-mark">RVASA<span>2</span></div><p id="loading-message">Preparing your visit</p><div class="loading-track"><div id="loading-fill"></div></div><small>LIGHT, SPACE & A MOMENT TO YOURSELF</small></section>

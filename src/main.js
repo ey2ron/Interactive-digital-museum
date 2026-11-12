@@ -1,10 +1,15 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { buildArc, sampleStops, segmentLength, easeInOut, scrollProgress, clamp01, nearestStop, checkpointProgress } from './tour.js';
+import { buildArc, sampleStops, scrollProgress, clamp01, nearestStop, checkpointProgress } from './tour.js';
+import { createNavigation, createPortraitFlight, smoothTravel, nearestViewingStop } from './navigation.js';
+import { createFreeRoam } from './free-roam.js';
+import { connectJoystick } from './joystick.js';
 
 const $ = id => document.getElementById(id);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const mobile = matchMedia('(max-width: 760px)').matches;
+const mobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+const touchLayout = matchMedia('(pointer: coarse)');
+const portraitLayout = matchMedia('(orientation: portrait)');
 const base = new URL('.', document.baseURI).pathname;
 let tour, artworks = [], renderer, camera, scene, ready = false, current = 0, desired = 0;
 let lastTime = performance.now(), lastDrawn = -1, lastCaption = '', resizePending = true;
@@ -17,24 +22,42 @@ let freeRoam = false, captionArt = null, detailIndex = -1, detailOrigin = 'index
 let detailTrigger = null, pointerStart = null;
 let viewAnimations = [];
 let dismissing = false;
+let resumeRoamLook = false;
+let navigation, walker, joystick;
 const raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2();
-try { freeRoam = localStorage.getItem('gallery-navigation') === 'free'; } catch {}
-
-function setNavigationMode(free) {
+function setNavigationMode(free, returnToNearest = true) {
+  if (free && (!ready || (touchLayout.matches && portraitLayout.matches))) return;
+  const wasFree = freeRoam;
   freeRoam = !!free;
   clearTimeout(settleTimer); transition = null; desired = current;
-  activeStop = nearestStop(stops, current);
+  activeStop = ready && wasFree ? nearestViewingStop(viewingStops, camera.position) : nearestStop(stops, current);
+  walker?.setActive(freeRoam);
+  document.body.classList.toggle('free-roam', freeRoam);
+  $('roam-help').hidden = !freeRoam;
   if (ready) syncScroll(current);
   lastWheel = -Infinity;
   $('toggle-roam').setAttribute('aria-pressed', String(freeRoam));
-  $('toggle-roam').title = freeRoam ? 'Switch back to one portrait per scroll' : 'Scroll freely along the gallery path';
+  $('toggle-roam').title = freeRoam ? 'Return to the nearest portrait view' : 'Explore with WASD and mouse look';
   $('gallery-status').textContent = freeRoam
-    ? 'Free roam on. Scroll continuously along the gallery path.'
+    ? 'Free roam on. WASD to move, mouse or drag to look. Escape returns to the nearest portrait.'
     : 'Guided mode on. Scroll once to move to the next portrait.';
-  try { localStorage.setItem('gallery-navigation', freeRoam ? 'free' : 'guided'); } catch {}
   updateCheckpoints(); lastDrawn = -1;
+  if (wasFree && !freeRoam && returnToNearest) goToStop(activeStop);
 }
-$('toggle-roam').addEventListener('click', () => setNavigationMode(!freeRoam));
+$('toggle-roam').addEventListener('click', () => {
+  setNavigationMode(!freeRoam);
+  if (freeRoam && !touchLayout.matches) walker.requestLook();
+});
+function updateRoamAvailability() {
+  const portraitPhone = touchLayout.matches && portraitLayout.matches;
+  $('toggle-roam').hidden = portraitPhone || reduced || document.body.classList.contains('fallback-mode');
+  if (portraitPhone && freeRoam) setNavigationMode(false);
+}
+touchLayout.addEventListener('change', updateRoamAvailability);
+portraitLayout.addEventListener('change', updateRoamAvailability);
+updateRoamAvailability();
+$('resume-roam').addEventListener('click', () => walker?.requestLook());
+$('exit-roam').addEventListener('click', () => setNavigationMode(false));
 
 function moveOneStop(direction) {
   const index = direction > 0 ? stops.findIndex(stop => stop > current + .00001)
@@ -53,18 +76,23 @@ function syncScroll(progress) {
 }
 function goToStop(index) {
   if (!ready) return;
+  if (freeRoam) setNavigationMode(false, false);
   clearTimeout(settleTimer);
   activeStop = Math.max(0, Math.min(stops.length - 1, index));
   const target = stops[activeStop];
-  const from = current * (stops.length - 1);
-  let length = 0;
-  for (let k = Math.floor(Math.min(from, activeStop)); k < Math.ceil(Math.max(from, activeStop)); k++) {
-    length += segmentLength(arc, viewingStops, k);
+  const destination = viewingStops[activeStop];
+  const path = navigation.findPath(camera.position, new THREE.Vector3(...destination.position));
+  if (!path) {
+    $('gallery-status').textContent = 'That viewing position cannot be reached from here. Please select another checkpoint.';
+    return;
   }
-  transition = Math.abs(target - current) < .000003 ? null :
-    { from: current, to: target, start: performance.now(), duration: Math.max(1.4, Math.min(4.2, 1.1 + length * .17)) * 1000 };
+  const flight = createPortraitFlight(path, camera.quaternion, new THREE.Quaternion(...destination.quaternion));
+  transition = flight.length < .00001 && flight.angle < .00001 ? null :
+    { from: current, to: target, start: performance.now(), duration: flight.duration, flight };
   desired = target;
+  lastDrawn = -1;
   updateCheckpoints();
+  updateCaption();
 }
 function updateCheckpoints() {
   const nearest = nearestStop(checkpointStops, current);
@@ -118,9 +146,7 @@ $('checkpoints').addEventListener('keydown', event => {
 
 addEventListener('wheel', event => {
   if (event.target.closest?.('#checkpoint-window')) return;
-  if (freeRoam && transition && !$('collection').open && !event.ctrlKey && event.deltaY) {
-    transition = null; desired = current;
-  }
+  if (freeRoam && !$('collection').open && !event.ctrlKey) { event.preventDefault(); return; }
   if (!ready || reduced || freeRoam || $('collection').open || scrollingCaption(event.target) || event.ctrlKey || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
   event.preventDefault();
   const now = performance.now(), freshGesture = now - lastWheel > 250;
@@ -143,7 +169,6 @@ addEventListener('keydown', event => {
   }
 });
 addEventListener('touchstart', event => {
-  if (freeRoam && transition && !$('collection').open) { transition = null; desired = current; }
   touchStart = ready && !reduced && !freeRoam && !$('collection').open && !scrollingCaption(event.target) && !event.target.closest?.('#checkpoint-window') && event.touches.length === 1
     ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
 }, { passive: true });
@@ -161,6 +186,7 @@ addEventListener('touchend', event => {
 addEventListener('touchcancel', () => { touchStart = null; });
 addEventListener('scroll', () => {
   if (!ready || reduced || transition || Math.abs(scrollY - expectedScroll) < 2) return;
+  if (freeRoam) { syncScroll(current); return; }
   desired = scrollProgress(scrollY, 0, document.documentElement.scrollHeight - innerHeight);
   activeStop = nearestStop(stops, desired);
   updateCheckpoints();
@@ -169,6 +195,8 @@ addEventListener('scroll', () => {
 }, { passive: true });
 
 function openCollection() {
+  if (!$('collection').open) resumeRoamLook = freeRoam && !!walker?.locked;
+  walker?.release();
   closeArtwork(false);
   if (!$('collection').open) {
     clearTimeout(settleTimer); transition = null; desired = current;
@@ -196,6 +224,9 @@ $('collection').addEventListener('close', () => {
   document.body.classList.remove('collection-open');
   detailIndex = -1; lastWheel = -Infinity;
   if (ready) syncScroll(current);
+  const resume = resumeRoamLook;
+  resumeRoamLook = false;
+  if (resume && freeRoam && !touchLayout.matches) walker?.requestLook();
 });
 $('collection').addEventListener('cancel', event => {
   event.preventDefault(); dismissView();
@@ -208,6 +239,8 @@ $('enter').addEventListener('click', () => {
   goToStop(1);
 });
 function showFallback(message) {
+  walker?.setActive(false);
+  freeRoam = false; document.body.classList.remove('free-roam'); $('roam-help').hidden = true;
   ready = false; transition = null; clearTimeout(settleTimer);
   $('toggle-roam').hidden = true;
   $('loading-message').textContent = message;
@@ -391,14 +424,17 @@ function artworkAt(clientX, clientY) {
 }
 function connectArtworkPicking() {
   renderer.domElement.addEventListener('pointerdown', event => {
+    if (freeRoam) return;
     if (!event.isPrimary) { pointerStart = null; return; }
     if (event.isPrimary && event.button === 0) pointerStart = { x: event.clientX, y: event.clientY, dragged: false };
   });
   renderer.domElement.addEventListener('pointermove', event => {
+    if (freeRoam) return;
     if (pointerStart && Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y) > 8) pointerStart.dragged = true;
     if (event.pointerType === 'mouse') renderer.domElement.style.cursor = artworkAt(event.clientX, event.clientY) ? 'pointer' : '';
   });
   renderer.domElement.addEventListener('pointerup', event => {
+    if (freeRoam) return;
     const start = pointerStart; pointerStart = null;
     if (!start || start.dragged || !event.isPrimary || event.button !== 0 || Math.hypot(event.clientX - start.x, event.clientY - start.y) > 8) return;
     const art = artworkAt(event.clientX, event.clientY);
@@ -419,24 +455,13 @@ function resize() {
   camera.updateProjectionMatrix(); resizePending = false;
 }
 function updateCaption() {
-  const viewingDirection = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
-  let chosen = null, best = .92;
-  for (const art of artworks) {
-    const direction = new THREE.Vector3(...art.position).sub(camera.position), distance = direction.length();
-    if (distance > 10 || distance < .2) continue;
-    const score = direction.normalize().dot(viewingDirection);
-    if (score > best) { best = score; chosen = art; }
-  }
-  // Guided captions follow the PR's centered stops; free roam follows the gaze.
-  if (!freeRoam) {
+  // The centre of the view must actually hit the painting, with no wall in between.
+  raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+  const hit = raycaster.intersectObjects(scene.children, true)[0];
+  let chosen = !transition && hit?.distance < 8 ? artFromHit(hit) : null;
+  if (chosen && !freeRoam) {
     const stop = current * (viewingStops.length - 1), index = Math.round(stop);
-    chosen = !transition && index > 0 && Math.abs(stop - index) < .002
-      ? artworks.find(art => art.id === viewingStops[index].id) : null;
-  }
-  if (current < .035) chosen = null;
-  if (chosen) {
-    raycaster.set(camera.position, new THREE.Vector3(...chosen.position).sub(camera.position).normalize());
-    if (artFromHit(raycaster.intersectObjects(scene.children, true)[0])?.id !== chosen.id) chosen = null;
+    if (index === 0 || Math.abs(stop - index) >= .002 || viewingStops[index].id !== chosen.id) chosen = null;
   }
   const key = chosen?.id || '';
   if (key !== lastCaption) {
@@ -456,10 +481,13 @@ function updateCaption() {
 /** Public local controller for previews and deterministic comparison with Blender. */
 function setProgress(progress) {
   if (!ready) return;
+  if (freeRoam) setNavigationMode(false, false);
   clearTimeout(settleTimer); transition = null;
   current = desired = clamp01(progress);
   activeStop = nearestStop(stops, current); updateCheckpoints();
   syncScroll(current);
+  sampleStops(tour, arc, viewingStops, current * (viewingStops.length - 1), position, quaternion);
+  camera.position.copy(position); camera.quaternion.copy(quaternion);
   lastDrawn = -1;
 }
 window.galleryTour = {
@@ -477,39 +505,45 @@ function tick(now) {
   const dt = Math.min(.05, (now-lastTime)/1000); lastTime = now;
   if (transition) {
     const elapsed = clamp01((now - transition.start) / transition.duration);
-    current = transition.from + (transition.to - transition.from) * easeInOut(elapsed);
+    current = transition.from + (transition.to - transition.from) * smoothTravel(elapsed);
+    transition.flight.sample(elapsed, position, quaternion);
+    camera.position.copy(position); camera.quaternion.copy(quaternion);
     syncScroll(current);
     if (elapsed === 1) {
       current = desired = transition.to; transition = null;
       lastDrawn = -1; // Settled captions/ending must update even if the pose already rounded to its target.
       updateCheckpoints();
     }
+  } else if (freeRoam) {
+    if (walker.update(dt)) lastDrawn = -1;
+    activeStop = nearestViewingStop(viewingStops, camera.position);
+    current = desired = stops[activeStop];
   } else current += (desired-current) * (1-Math.exp(-dt/0.12));
   if (!transition && Math.abs(desired-current) < .000003) current = desired;
-  if (Math.abs(current-lastDrawn) < .0000001 && !resizePending) return;
+  // Returning from free roam can move the camera while its checkpoint stays unchanged.
+  if (!transition && Math.abs(current-lastDrawn) < .0000001 && !resizePending) return;
   if (resizePending) resize();
-  sampleStops(tour, arc, viewingStops, current * (viewingStops.length - 1), position, quaternion);
-  camera.position.copy(position); camera.quaternion.copy(quaternion);
   renderer.render(scene, camera); lastDrawn = current;
   const stopCoordinate = current * (viewingStops.length - 1);
   $('intro').style.opacity = String(1-clamp01(stopCoordinate/.6));
-  $('intro').style.visibility = stopCoordinate > .65 ? 'hidden' : 'visible';
-  $('ending').classList.toggle('visible', !transition && current === 1);
+  $('intro').style.visibility = freeRoam || stopCoordinate > .65 ? 'hidden' : 'visible';
+  $('ending').classList.toggle('visible', !freeRoam && !transition && current === 1);
   const barProgress = checkpointProgress(checkpointStops, current);
   $('progress-fill').style.transform = `scaleX(${barProgress})`;
   $('progress-label').textContent = String(Math.round(barProgress*100)).padStart(2,'0');
   updateCheckpoints();
-  $('scroll-hint').textContent = freeRoam ? 'FREE ROAM · SCROLL TO EXPLORE ↓' : current < .02 ? 'SCROLL TO EXPLORE ↓' : 'SCROLL TO NEXT VIEW ↓';
+  $('scroll-hint').textContent = freeRoam ? (touchLayout.matches ? 'JOYSTICK TO MOVE / DRAG RIGHT TO LOOK' : 'WASD TO MOVE / MOUSE TO LOOK / ESC TO RETURN') : current < .02 ? 'SCROLL TO EXPLORE ↓' : 'SCROLL TO NEXT VIEW ↓';
   updateCaption();
 }
 addEventListener('resize', () => { resizePending = true; if (ready) syncScroll(current); });
 async function init() {
   try {
-    const responses = await Promise.all([fetch(base+'assets/camera-tour.json'), fetch(base+'assets/artworks.json'), fetch(base+'assets/artwork-notes.json'), fetch(base+'assets/stops.json')]);
+    const responses = await Promise.all([fetch(base+'assets/camera-tour.json'), fetch(base+'assets/artworks.json'), fetch(base+'assets/artwork-notes.json'), fetch(base+'assets/stops.json'), fetch(base+'assets/navigation.json')]);
     if (responses.some(r => !r.ok)) throw new Error('Gallery assets are missing. Run the Blender export first.');
-    const [tourData, artworkData, notes, stopData] = await Promise.all(responses.map(r=>r.json()));
+    const [tourData, artworkData, notes, stopData, navigationData] = await Promise.all(responses.map(r=>r.json()));
     tour = tourData; artworks = artworkData.map(art => ({ ...art, note: notes[art.id] }));
     viewingStops = stopData; arc = buildArc(tour);
+    navigation = createNavigation(navigationData);
     createIndex(); createCheckpoints(); setNavigationMode(freeRoam);
     if (reduced) return showFallback('Explore at your own pace');
     renderer = new THREE.WebGLRenderer({ antialias: !mobile, powerPreference: mobile ? 'low-power' : 'high-performance' });
@@ -524,7 +558,18 @@ async function init() {
     });
     const slots = new Map(artworks.map(art => [art.slot, art.id]));
     model.scene.traverse(object => { if (slots.has(object.name)) object.userData.artId = slots.get(object.name); });
-    scene.add(model.scene); ready = true; resize(); syncScroll(0); connectArtworkPicking();
+    scene.add(model.scene); ready = true; resize(); setProgress(0);
+    walker = createFreeRoam(camera, renderer.domElement, navigation, {
+      onExit: () => { if (freeRoam) setNavigationMode(false); },
+      onPick: (x, y) => { const art = artworkAt(x, y); if (art) openArtwork(art); },
+      onClear: () => joystick?.reset(),
+      onLockChange: locked => {
+        $('resume-roam').hidden = locked;
+        $('roam-reticle').hidden = !locked;
+      }
+    });
+    joystick = connectJoystick($('roam-joystick'), (x, z) => walker.setMoveAxis(x, z));
+    connectArtworkPicking();
     $('toggle-roam').disabled = false;
     loading.classList.add('loaded');
     requestAnimationFrame(tick);
