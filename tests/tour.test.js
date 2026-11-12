@@ -47,3 +47,30 @@ test('scroll mapping handles endpoints, resizing, and negative overscroll', () =
   assert.equal(scrollProgress(2000,0,1000),1);
   assert.equal(scrollProgress(0,0,0),0);
 });
+
+import { buildArc, sampleStops, segmentLength } from '../src/tour.js';
+const stops = JSON.parse(fs.readFileSync(new URL('../public/assets/stops.json', import.meta.url)));
+const arc = buildArc(tour);
+const art = JSON.parse(fs.readFileSync(new URL('../public/assets/artworks.json', import.meta.url)));
+test('one stop per painting plus the entrance', () => {
+  assert.equal(stops.length, art.length + 1);
+  assert.deepEqual(stops.slice(1).map(s => s.id).sort(), art.map(a => a.id).sort());
+});
+test('every stop is centred on its painting at a comfortable distance', () => {
+  for (const stop of stops.slice(1)) {
+    const meta = art.find(a => a.id === stop.id), painting = new Vector3(...meta.position);
+    const { position, quaternion } = sampleStops(tour, arc, stops, stops.indexOf(stop));
+    const aim = painting.clone().sub(position);
+    assert.ok(Math.abs(aim.length() - Math.max(2.4, 1.7 * meta.size_m[1])) < .05, `${stop.id} distance`);
+    assert.ok(new Vector3(0, 0, -1).applyQuaternion(quaternion).angleTo(aim) < .001, `${stop.id} centred`);
+  }
+});
+test('travel between stops is continuous (no teleports) in both directions', () => {
+  let last = sampleStops(tour, arc, stops, 0).position.clone(), farthest = 0;
+  for (let s = 0; s <= stops.length - 1; s += .002) {
+    const p = sampleStops(tour, arc, stops, s).position;
+    farthest = Math.max(farthest, p.distanceTo(last)); last = p.clone();
+  }
+  assert.ok(farthest < .12, `largest jump per .002 step was ${farthest}`);
+  assert.ok(segmentLength(arc, stops, 0) > 0);
+});

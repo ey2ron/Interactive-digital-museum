@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RVASA2 — Description popup drafts</title>
+<style>
+  :root{--bg:#121717;--panel:#151b1b;--ink:#ede9df;--muted:#aaa99e;--accent:#d5ba86;--line:#ffffff1f;
+        font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg)}
+  *{box-sizing:border-box} body{margin:0;line-height:1.6}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+  .eyebrow{font-size:10px;letter-spacing:2.1px;color:var(--accent);margin:0}
+  .serif{font-family:Georgia,'Times New Roman',serif;font-weight:400}
+
+  /* ---------- page chrome (this mockup only) ---------- */
+  .top{padding:28px 42px;border-bottom:1px solid var(--line)}
+  .top h1{font-size:22px;margin:6px 0 4px}
+  .top p{margin:0;color:var(--muted);font-size:13px;max-width:70ch}
+  .tabs{display:flex;gap:8px;padding:18px 42px;flex-wrap:wrap}
+  .tabs button{padding:9px 16px;border:1px solid var(--line);border-radius:999px;font-size:12px;letter-spacing:.4px}
+  .tabs button[aria-selected=true]{border-color:var(--accent);color:var(--accent)}
+  .note{padding:0 42px 18px;color:var(--muted);font-size:12px;max-width:90ch}
+
+  /* ---------- fake gallery viewport so you can judge placement ---------- */
+  .stage{position:relative;margin:0 42px 60px;height:min(72vh,640px);min-height:480px;border:1px solid var(--line);overflow:hidden;
+         background:radial-gradient(ellipse at 50% 35%,#9fb1b4 0%,#4d5d61 45%,#1a2325 100%)}
+  .painting{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:78%;aspect-ratio:1040/1850;
+            border:10px solid #0c0f0f;outline:6px solid #e8e6df;box-shadow:0 18px 50px #0009}
+  .painting img{display:block;width:100%;height:100%;object-fit:cover}
+  .hud{position:absolute;left:0;right:0;display:flex;justify-content:space-between;padding:20px 28px;font-size:10px;letter-spacing:1.6px;z-index:5;pointer-events:none}
+  .hud.top-hud{top:0}.hud.bottom-hud{bottom:0}
+  .caption{position:absolute;left:28px;bottom:64px;z-index:5;text-shadow:0 2px 15px #000}
+  .caption h2{font-size:29px;margin:8px 0 4px}.caption p{margin:0;color:var(--muted);font-size:12px}
+  .info-btn{display:inline-flex;align-items:center;gap:10px;margin-top:14px;padding:9px 0;border-bottom:1px solid #dbd2b777;font-size:12px;letter-spacing:.7px;pointer-events:auto}
+  .info-btn i{display:inline-grid;place-items:center;width:20px;height:20px;border:1px solid var(--accent);border-radius:50%;font:italic 12px Georgia,serif;color:var(--accent)}
+
+  .variant{display:none}.variant.on{display:block}
+  .meta{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:12px;margin:18px 0}
+  .meta dt{color:var(--muted);letter-spacing:1.4px;font-size:10px;padding-top:2px}.meta dd{margin:0}
+  .desc{font-size:14px;color:#d8d8cc;max-width:52ch}
+  .src{font-size:11px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+  .src:hover{color:var(--accent)}
+  .close{position:absolute;top:16px;right:18px;font-size:12px;letter-spacing:.4px;padding:8px;color:var(--ink)}
+  .pros{margin:12px 42px 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;font-size:12px;color:var(--muted)}
+  .pros li{border:1px solid var(--line);padding:12px 14px}.pros b{display:block;color:var(--ink);margin-bottom:3px;font-size:11px;letter-spacing:1.2px}
+
+  /* ---------- A: side card — slides in beside the painting, gallery stays visible ---------- */
+  .A .panel{position:absolute;top:50%;right:28px;transform:translate(24px,-50%);width:min(340px,42%);padding:28px;z-index:6;
+            background:#101717e6;backdrop-filter:blur(14px);border:1px solid var(--line);opacity:0;visibility:hidden;
+            transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1),visibility .35s}
+  .A .panel.open{opacity:1;visibility:visible;transform:translate(0,-50%)}
+  .A h3{font-size:30px;line-height:1.1;margin:10px 0 0}
+
+  /* ---------- B: centred modal — painting left, text right, dims the scene ---------- */
+  .B .scrim{position:absolute;inset:0;background:#070b0bcc;z-index:6;display:grid;place-items:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+  .B .scrim.open{opacity:1;visibility:visible}
+  .B .modal{position:relative;display:grid;grid-template-columns:minmax(120px,.8fr) 1.4fr;gap:34px;width:min(780px,100%);max-height:100%;overflow:auto;
+            padding:34px;background:var(--panel);border:1px solid var(--line);transform:scale(.97);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  .B .scrim.open .modal{transform:none}
+  .B .modal img{width:100%;max-height:340px;object-fit:contain;background:#101515;padding:14px}
+  .B h3{font-size:34px;line-height:1.08;margin:10px 0 0}
+
+  /* ---------- C: bottom sheet — slim, peeks up from the footer; best on phones ---------- */
+  .C .sheet{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:22px 28px 26px;background:linear-gradient(#101717f2,#101717);border-top:1px solid var(--line);
+            transform:translateY(calc(100% - 0px));transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+  .C .sheet.open{transform:none}
+  .C .sheet-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:30px;align-items:start}
+  .C h3{font-size:26px;margin:8px 0 0}
+  .C .grab{position:absolute;top:8px;left:50%;width:36px;height:3px;border-radius:2px;background:#ffffff40;transform:translateX(-50%)}
+  @media(max-width:700px){
+    .top,.tabs,.note,.pros{padding-left:16px;padding-right:16px;margin-left:0;margin-right:0}.stage{margin-left:16px;margin-right:16px}
+    .A .panel{left:12px;right:12px;width:auto;top:auto;bottom:12px;transform:translateY(24px)}.A .panel.open{transform:none}
+    .B .modal{grid-template-columns:1fr;gap:18px;padding:22px}.B .modal img{max-height:200px}
+    .C .sheet-grid{grid-template-columns:1fr;gap:12px}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <p class="eyebrow">RVASA2 / DRAFT</p>
+  <h1>Painting description popup — three options</h1>
+  <p>Pick a tab, then press the “About this work” button inside the fake gallery view. All text is placeholder; the real data currently only has title, artist, size and a source link.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="Popup variants">
+  <button role="tab" aria-selected="true" data-v="A">A · Side card</button>
+  <button role="tab" aria-selected="false" data-v="B">B · Centred modal</button>
+  <button role="tab" aria-selected="false" data-v="C">C · Bottom sheet</button>
+</div>
+
+<!-- one shared "scene" markup, cloned per variant by the script below -->
+<template id="scene">
+  <div class="stage">
+    <div class="hud top-hud"><span>WANEELLA</span><span>A DIGITAL GALLERY · VOL. 01</span><span>THE COLLECTION ↗</span></div>
+    <div class="painting"><img src="/assets/tea_time.jpg" alt="Tea Time" /></div>
+    <aside class="caption">
+      <p class="eyebrow">WORK 02 / 16</p>
+      <h2 class="serif">Tea Time</h2>
+      <p>Waneella</p>
+      <button class="info-btn" aria-haspopup="dialog"><i>i</i> About this work</button>
+    </aside>
+    <div class="hud bottom-hud"><span>ONE SCROLL · NEXT WORK ↓</span><span>13 ▬▬▬▬ 100</span><span>16 WORKS · VIEW INDEX ↗</span></div>
+    <!--POPUP-->
+  </div>
+</template>
+
+<section class="variant A on" id="A"></section>
+<section class="variant B" id="B"></section>
+<section class="variant C" id="C"></section>
+
+<ul class="pros" id="pros"></ul>
+
+<script>
+  const detail = `
+    <p class="eyebrow">WORK 02 / 16</p>
+    <h3 class="serif">Tea Time</h3>
+    <dl class="meta">
+      <dt>ARTIST</dt><dd>Waneella</dd>
+      <dt>MEDIUM</dt><dd>Digital pixel art <em style="color:var(--muted)">(placeholder)</em></dd>
+      <dt>YEAR</dt><dd>2025 <em style="color:var(--muted)">(placeholder)</em></dd>
+    </dl>
+    <p class="desc">A quiet moment held in a small room: steam rising, the afternoon light going gold. Placeholder description — two or three sentences about the mood, the story, or how the piece was made.</p>
+    <p><a class="src" href="#" onclick="return false">View original post ↗</a></p>`;
+
+  const variants = {
+    A: `<div class="panel" role="dialog" aria-label="About Tea Time"><button class="close" data-close>Close ×</button>${detail}</div>`,
+    B: `<div class="scrim" data-scrim><div class="modal" role="dialog" aria-modal="true" aria-label="About Tea Time">
+          <button class="close" data-close>Close ×</button>
+          <img src="/assets/tea_time.jpg" alt="Tea Time" /><div>${detail}</div></div></div>`,
+    C: `<div class="sheet" role="dialog" aria-label="About Tea Time"><span class="grab"></span><button class="close" data-close>Close ×</button>
+          <div class="sheet-grid"><div>
+            <p class="eyebrow">WORK 02 / 16</p><h3 class="serif">Tea Time</h3>
+            <dl class="meta"><dt>ARTIST</dt><dd>Waneella</dd><dt>MEDIUM</dt><dd>Digital pixel art</dd></dl>
+            <a class="src" href="#" onclick="return false">View original post ↗</a></div>
+            <p class="desc">A quiet moment held in a small room: steam rising, the afternoon light going gold. Placeholder description.</p></div></div>`
+  };
+  const pros = {
+    A: [['KEEPS THE ART VISIBLE','Painting stays centred and unobstructed; card sits beside it. Feels like a museum wall label.'],['LOW FRICTION','Opens/closes without a full-screen takeover. Good for quick reading between scroll steps.'],['TRADE-OFF','Only ~340px wide, so long text needs a short description.']],
+    B: [['ROOM FOR LONGER TEXT','Image + title + medium + a few paragraphs fit comfortably.'],['STRONG FOCUS','Dims the scene; clear "I am reading about this work" state.'],['TRADE-OFF','Hides the 3D view while open; heavier than the others.']],
+    C: [['BEST ON PHONES','Thumb reach, familiar pattern, scene still peeks above it.'],['MINIMAL','Slim strip that feels part of the footer UI.'],['TRADE-OFF','Covers the bottom of the painting; short copy only.']]
+  };
+  const tpl = document.getElementById('scene').innerHTML;
+  for (const [key, markup] of Object.entries(variants)) {
+    document.getElementById(key).innerHTML = tpl.replace('<!--POPUP-->', markup);
+  }
+  const closers = {
+    A: root => root.querySelector('.panel'), B: root => root.querySelector('.scrim'), C: root => root.querySelector('.sheet')
+  };
+  for (const key of Object.keys(variants)) {
+    const root = document.getElementById(key), target = () => closers[key](root);
+    const open = () => { target().classList.add('open'); target().querySelector('[data-close]').focus(); };
+    const close = () => { target().classList.remove('open'); root.querySelector('.info-btn').focus(); };
+    root.querySelector('.info-btn').addEventListener('click', () => target().classList.contains('open') ? close() : open());
+    root.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', close));
+    root.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    root.querySelector('[data-scrim]')?.addEventListener('click', e => { if (e.target === e.currentTarget) close(); });
+  }
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  function show(key) {
+    tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.v === key)));
+    document.querySelectorAll('.variant').forEach(v => v.classList.toggle('on', v.id === key));
+    document.getElementById('pros').innerHTML = pros[key].map(([h, t]) => `<li><b>${h}</b>${t}</li>`).join('');
+  }
+  tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.v)));
+  show('A');
+</script>
+</body>
+</html>
