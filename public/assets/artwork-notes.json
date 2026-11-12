@@ -1,0 +1,84 @@
+{
+  "radiant": {
+    "alt": "An orange-lit corner shop on a dark street, with pipes, signs and a vending machine around its windows.",
+    "description": "A small shop spills amber light onto a quiet street. Pipes, signs and darkened windows surround its warm interior, making one illuminated corner feel like a refuge from the night.",
+    "credit": "Gallery description"
+  },
+  "tea_time": {
+    "alt": "A warmly lit room with a green door, shelves of jars, and a small table set with a cup and plate.",
+    "description": "A cup waits on a small table beneath the warm light of a crowded room. Shelves, jars and a well-worn green door turn an everyday tea break into a scene full of small discoveries.",
+    "credit": "Gallery description"
+  },
+  "moon_shine": {
+    "alt": "A moon hangs above a teal city canyon crowded with buildings, balconies, cables and air-conditioning units.",
+    "description": "Moonlight settles over a narrow canyon of buildings, cables and balconies. The cool teal palette brings stillness to the city's dense geometry, inviting the eye to wander from one rooftop to the next.",
+    "credit": "Gallery description"
+  },
+  "rainbow": {
+    "alt": "A narrow kitchen filled with bottles, dishes and a small table, lit in turquoise, pink and violet.",
+    "description": "Pink, violet and turquoise light transform a narrow kitchen into a little world of colour. Bottles, dishes and everyday clutter catch the glow, giving familiar objects an unexpected theatrical presence.",
+    "credit": "Gallery description"
+  },
+  "copper": {
+    "alt": "A restaurant interior in copper and amber tones, with shelves of bottles, a counter, tiled walls and ceiling ducts.",
+    "description": "Copper and amber tones gather around a restaurant counter. Bottles, tiled surfaces and overhead ducts give the room a practical, lived-in character, while the warm light makes its empty spaces feel welcoming.",
+    "credit": "Gallery description"
+  },
+  "milk_tea": {
+    "alt": "A sunlit milk-tea storefront with a pink awning, Chinese lettering, climbing greenery and air-conditioning units.",
+    "description": "A pink awning and milk-tea sign brighten a sunlit storefront. Greenery softens the walls and air-conditioning units, bringing a small pocket of freshness to the tightly packed street.",
+    "credit": "Gallery description"
+  },
+  "hearth": {
+    "alt": "A glowing red-orange shop tucked into a dense stack of dark buildings, pipes, signs and outdoor units.",
+    "description": "A red-orange shop glows within a dense stack of buildings and machinery. Against the cool surrounding city, its bright window becomes a small hearth: an inviting centre of warmth in an intricate urban scene.",
+    "credit": "Gallery description"
+  },
+  "night_sky": {
+    "alt": "Illuminated shops and projecting signs line a quiet street beneath dark blue sky and clouds.",
+    "description": "Bright signs and open shopfronts punctuate a dark street beneath a wide night sky. The contrast between the busy architecture and the quiet clouds gives the scene room to breathe.",
+    "credit": "Gallery description"
+  },
+  "last_morning": {
+    "alt": "A narrow blue kitchen with fluorescent lights, stools, shelves, and a red glow along one wall.",
+    "description": "Cool blue light fills a narrow kitchen, interrupted by a red glow along the wall. Stools, shelves and suspended fluorescent tubes make the empty room feel suspended between the end of a night and the start of a day.",
+    "credit": "Gallery description"
+  },
+  "shimmer": {
+    "alt": "A golden sunlit room crowded with framed pictures, shelves, plants and a glowing old television.",
+    "description": "Sunlight makes an ordinary room feel strangely dreamlike. The publisher's note describes a place that is recognisable yet unfamiliar, and the wish to linger rather than wake.",
+    "credit": "Adapted from Harugo No Mayu",
+    "source": "https://www.harugonomayu.com/shop/p/shimmer"
+  },
+  "second_chance": {
+    "alt": "A dim kitchen with bottles, a washing machine, a small green sprout by the sink, and a view into a pink-lit room.",
+    "description": "The publisher's note connects a newly planted sprout with the uncertainty of caring for something fragile. Growth needs patience and a chance to begin, even when survival cannot be guaranteed.",
+    "credit": "Adapted from Harugo No Mayu",
+    "source": "https://www.harugonomayu.com/shop/p/second-chance-by-waneella"
+  },
+  "still_night": {
+    "alt": "A green-blue kitchen and sitting room at night, with a sink, bottles, framed pictures and a lit window.",
+    "description": "Green and blue light settles across a kitchen and the room beyond. Framed pictures, a sink and a table remain quietly in place, turning an unoccupied interior into a portrait of domestic stillness.",
+    "credit": "Gallery description"
+  },
+  "through_dust": {
+    "alt": "A dim, cluttered sitting room with framed pictures, a sofa, plants and an open doorway admitting daylight.",
+    "description": "Daylight enters a shadowed room filled with pictures, plants and worn furniture. The open doorway draws the eye outward, while the collected objects inside suggest the slow accumulation of ordinary life.",
+    "credit": "Gallery description"
+  },
+  "purple_fatigue": {
+    "alt": "An outdoor urban seating area with stools, small tables and layered signs, coloured in purple, blue and red.",
+    "description": "Purple and blue shadows settle around an outdoor cluster of stools and tables. Layered signs and red accents keep the city visually busy, even as the empty seating suggests a moment of rest.",
+    "credit": "Gallery description"
+  },
+  "breeze": {
+    "alt": "A sunlit alley with overhead cables, hanging greenery, scattered papers and a red vending machine.",
+    "description": "Sunlight cuts through a narrow alley of wires, signs and hanging greenery. Scattered papers and a red vending machine give the scene small points of movement and colour beneath the open blue sky.",
+    "credit": "Gallery description"
+  },
+  "0542": {
+    "alt": "A red-lit building and rooftop structures rise above a blue city street beneath a violet early-morning sky.",
+    "description": "Red signs and rooftop structures stand against a violet-blue sky. The title fixes the scene at a precise early hour, while the contrasting lights hold the city between the atmosphere of night and the arrival of morning.",
+    "credit": "Gallery description"
+  }
+}

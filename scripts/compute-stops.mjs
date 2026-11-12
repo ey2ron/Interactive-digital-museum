@@ -31,6 +31,10 @@ const stops = artworks.map((art, order) => {
 });
 // Path order first; paintings sharing a path frame (facing walls) keep their gallery numbering.
 stops.sort((a, b) => a.frame - b.frame || a.order - b.order);
+// Finish with the PR's portrait 14, after visiting every other painting.
+const finalIndex = stops.findIndex(stop => stop.id === 'second_chance');
+if (finalIndex < 0) throw new Error('The final artwork, Second Chance, is missing from the export.');
+stops.push(...stops.splice(finalIndex, 1));
 
 const first = tour.samples[0];
 const entrance = { id: null, order: -1, frame: 0, pathGap: 0, position: first.slice(1, 4), quaternion: first.slice(4, 8) };

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { sampleTour, scrollProgress } from '../src/tour.js';
+import { sampleTour, scrollProgress, buildArc, sampleStops, segmentLength, easeInOut, nearestStop, checkpointProgress } from '../src/tour.js';
 import { Vector3 } from 'three';
 
 const tour = JSON.parse(fs.readFileSync(new URL('../public/assets/camera-tour.json', import.meta.url)));
@@ -48,29 +48,83 @@ test('scroll mapping handles endpoints, resizing, and negative overscroll', () =
   assert.equal(scrollProgress(0,0,0),0);
 });
 
-import { buildArc, sampleStops, segmentLength } from '../src/tour.js';
+
 const stops = JSON.parse(fs.readFileSync(new URL('../public/assets/stops.json', import.meta.url)));
+const artworks = JSON.parse(fs.readFileSync(new URL('../public/assets/artworks.json', import.meta.url)));
 const arc = buildArc(tour);
-const art = JSON.parse(fs.readFileSync(new URL('../public/assets/artworks.json', import.meta.url)));
-test('one stop per painting plus the entrance', () => {
-  assert.equal(stops.length, art.length + 1);
-  assert.deepEqual(stops.slice(1).map(s => s.id).sort(), art.map(a => a.id).sort());
+
+test('the PR tour visits every artwork once and ends with its original portrait 14, Second Chance', () => {
+  assert.equal(stops.length, artworks.length + 1);
+  assert.equal(stops[0].id, null);
+  assert.deepEqual(stops.slice(1).map(stop => stop.id).sort(), artworks.map(art => art.id).sort());
+  assert.equal(stops.at(-1).id, 'second_chance');
+  assert.equal(stops.at(-2).id, 'still_night');
+  assert.equal(stops.at(-3).id, 'shimmer');
+  assert.ok(stops.every(stop => stop.frame >= 0 && stop.frame < tour.samples.length));
 });
-test('every stop is centred on its painting at a comfortable distance', () => {
-  for (const stop of stops.slice(1)) {
-    const meta = art.find(a => a.id === stop.id), painting = new Vector3(...meta.position);
-    const { position, quaternion } = sampleStops(tour, arc, stops, stops.indexOf(stop));
-    const aim = painting.clone().sub(position);
-    assert.ok(Math.abs(aim.length() - Math.max(2.4, 1.7 * meta.size_m[1])) < .05, `${stop.id} distance`);
-    assert.ok(new Vector3(0, 0, -1).applyQuaternion(quaternion).angleTo(aim) < .001, `${stop.id} centred`);
+
+test('every portrait has the PR centered framing and a comfortable viewing distance', () => {
+  stops.slice(1).forEach((stop, index) => {
+    const art = artworks.find(art => art.id === stop.id);
+    const { position, quaternion } = sampleStops(tour, arc, stops, index + 1);
+    const aim = new Vector3(...art.position).sub(position);
+    assert.ok(Math.abs(aim.length() - Math.max(2.4, 1.7 * art.size_m[1])) < .05, `${art.title}: viewing distance`);
+    assert.ok(new Vector3(0, 0, -1).applyQuaternion(quaternion).angleTo(aim) < .001, `${art.title}: centered gaze`);
+    assert.ok(position.distanceTo(new Vector3(...stop.position)) < .00001);
+  });
+});
+
+test('the complete reordered tour is continuous forwards and backwards', () => {
+  for (const direction of [1, -1]) {
+    let previous = sampleStops(tour, arc, stops, direction > 0 ? 0 : stops.length - 1);
+    for (let step = 1; step <= 8000; step++) {
+      const fraction = step / 8000;
+      const coordinate = (direction > 0 ? fraction : 1 - fraction) * (stops.length - 1);
+      const next = sampleStops(tour, arc, stops, coordinate);
+      assert.ok(next.position.distanceTo(previous.position) < .12, `no position jump at ${coordinate}`);
+      assert.ok(next.quaternion.angleTo(previous.quaternion) < .08, `no gaze jump at ${coordinate}`);
+      assert.ok(Number.isFinite(next.position.length()));
+      previous = next;
+    }
   }
 });
-test('travel between stops is continuous (no teleports) in both directions', () => {
-  let last = sampleStops(tour, arc, stops, 0).position.clone(), farthest = 0;
-  for (let s = 0; s <= stops.length - 1; s += .002) {
-    const p = sampleStops(tour, arc, stops, s).position;
-    farthest = Math.max(farthest, p.distanceTo(last)); last = p.clone();
+
+test('the final return follows the authored path backwards to Second Chance', () => {
+  const index = stops.length - 2;
+  assert.ok(stops[index].frame > stops[index + 1].frame, 'final leg revisits an earlier path frame');
+  assert.ok(segmentLength(arc, stops, index) > 0, 'reverse travel has a positive duration weight');
+  const expected = sampleStops(tour, arc, stops, index + .4);
+  sampleStops(tour, arc, stops, 1);
+  const repeated = sampleStops(tour, arc, stops, index + .4);
+  assert.deepEqual(repeated.position.toArray(), expected.position.toArray());
+  assert.deepEqual(repeated.quaternion.toArray(), expected.quaternion.toArray());
+  assert.ok(sampleStops(tour, arc, stops, stops.length - 1).position.distanceTo(new Vector3(...stops.at(-1).position)) < .00001);
+});
+
+test('facing-wall turns sharing a path frame retain smooth motion', () => {
+  for (let index = 0; index < stops.length - 1; index++) {
+    if (stops[index].frame !== stops[index + 1].frame) continue;
+    const start = sampleStops(tour, arc, stops, index);
+    const middle = sampleStops(tour, arc, stops, index + .5);
+    const end = sampleStops(tour, arc, stops, index + 1);
+    assert.ok(start.quaternion.angleTo(end.quaternion) > 1, 'paintings face different directions');
+    assert.ok(middle.position.distanceTo(start.position) < start.position.distanceTo(end.position));
+    assert.ok(middle.quaternion.angleTo(start.quaternion) < end.quaternion.angleTo(start.quaternion));
+    assert.ok(segmentLength(arc, stops, index) > 0);
   }
-  assert.ok(farthest < .12, `largest jump per .002 step was ${farthest}`);
-  assert.ok(segmentLength(arc, stops, 0) > 0);
+});
+
+test('all seventeen checkpoint markers align with entrance and portrait progress', () => {
+  const checkpoints = stops.map((_, index) => index / (stops.length - 1));
+  assert.equal(checkpoints.length, 17);
+  checkpoints.forEach((progress, index) => {
+    assert.equal(nearestStop(checkpoints, progress), index);
+    assert.ok(Math.abs(checkpointProgress(checkpoints, progress) - index / (checkpoints.length - 1)) < .000001);
+    if (index) assert.ok(progress > checkpoints[index - 1]);
+  });
+  assert.equal(checkpointProgress(checkpoints, -1), 0);
+  assert.equal(checkpointProgress(checkpoints, 2), 1);
+  assert.equal(easeInOut(0), 0);
+  assert.equal(easeInOut(.5), .5);
+  assert.equal(easeInOut(1), 1);
 });

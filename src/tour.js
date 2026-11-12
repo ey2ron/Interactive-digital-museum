@@ -42,7 +42,7 @@ export function buildArc(tour) {
 /** Travel effort of one segment, used to pick its duration. */
 export function segmentLength(arc, stops, k) {
   const a = stops[k], b = stops[k + 1];
-  const path = arc[b.frame] - arc[a.frame];
+  const path = Math.abs(arc[b.frame] - arc[a.frame]);
   if (path > 0) return path;
   return 1.2 * new Quaternion(...a.quaternion).angleTo(new Quaternion(...b.quaternion));
 }
@@ -59,7 +59,7 @@ export function sampleStops(tour, arc, stops, s, position = new Vector3(), quate
   }
   // Follow the authored route between the two path frames at even speed.
   const target = arc[A.frame] + u * (arc[B.frame] - arc[A.frame]);
-  let low = A.frame, high = B.frame;
+  let low = Math.min(A.frame, B.frame), high = Math.max(A.frame, B.frame);
   while (low + 1 < high) { const mid = (low + high) >> 1; if (arc[mid] <= target) low = mid; else high = mid; }
   const r0 = tour.samples[low], r1 = tour.samples[high];
   const t = clamp01((target - arc[low]) / (arc[high] - arc[low] || 1));
@@ -78,3 +78,21 @@ export function sampleStops(tour, arc, stops, s, position = new Vector3(), quate
 }
 
 export const easeInOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+
+
+/** Nearest viewing stop or bar checkpoint in normalized tour space. */
+export function nearestStop(stops, progress) {
+  return stops.reduce((best, stop, index) =>
+    Math.abs(stop - progress) < Math.abs(stops[best] - progress) ? index : best, 0);
+}
+
+/** Keep bar checkpoints evenly spaced and aligned to the fill. */
+export function checkpointProgress(stops, progress) {
+  for (let index = 1; index < stops.length; index++) {
+    if (progress <= stops[index]) {
+      return (index - 1 + clamp01((progress - stops[index - 1]) /
+        (stops[index] - stops[index - 1]))) / (stops.length - 1);
+    }
+  }
+  return 1;
+}

@@ -13,16 +13,27 @@
   <a class="skip" href="#collection">Skip to the artworks</a>
   <div id="stage" aria-label="3D gallery walkthrough"></div>
   <div class="vignette"></div>
-  <header><a class="brand" href="#" aria-label="Return to entrance">WANEELLA</a><span class="edition">A DIGITAL GALLERY · VOL. 01</span><button id="open-collection">The collection <span>↗</span></button></header>
+  <header><a class="brand" href="#" aria-label="Return to entrance">WANEELLA</a><span class="edition">A DIGITAL GALLERY · VOL. 01</span><div class="header-actions"><button id="toggle-roam" type="button" aria-pressed="false" title="Scroll freely along the gallery path" disabled>Free roam</button><button id="open-collection">The collection <span>↗</span></button></div></header>
   <main id="tour" aria-label="Scroll to explore the gallery">
     <section class="intro" id="intro"><p class="eyebrow">SIXTEEN WORKS</p><h1>After<br><em>hours.</em></h1><p class="intro-copy">A quiet place for luminous worlds.<br>Take your time. Let the gallery unfold.</p><button id="enter">Enter the gallery <span>↓</span></button></section>
     <section class="ending" id="ending"><p class="eyebrow">THE END OF THIS VISIT</p><h2>Stay a little<br><em>longer.</em></h2><p>There is always another detail to find.</p><button id="restart">Return to the entrance ↖</button></section>
   </main>
-  <aside id="art-caption" aria-live="polite"><span class="caption-rule"></span><p class="eyebrow" id="art-number"></p><h2 id="art-title"></h2><p>Waneella</p><button class="info-btn" id="info-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="art-panel"><i>i</i> About this work</button></aside>
-  <aside id="art-panel" role="dialog" aria-labelledby="panel-title" aria-hidden="true"><button class="panel-close" id="panel-close">Close ×</button><p class="eyebrow" id="panel-number"></p><h2 id="panel-title"></h2><dl id="panel-meta"></dl><p class="panel-desc" id="panel-desc"></p><p><a id="panel-source" target="_blank" rel="noopener noreferrer">View original post ↗</a></p></aside>
-  <footer><span id="scroll-hint">SCROLL TO EXPLORE <span>↓</span></span><div class="progress-wrap"><span id="progress-label">00</span><div class="progress-track"><div id="progress-fill"></div></div><span id="progress-total">16</span></div><button id="collection-footer">16 WORKS · VIEW INDEX ↗</button></footer>
+  <aside id="art-caption" aria-label="Current artwork details" aria-live="polite" tabindex="0" inert><span class="caption-rule"></span><p class="eyebrow" id="art-number"></p><h2 id="art-title"></h2><p class="caption-artist">Waneella</p><p id="art-description"></p><p id="art-description-credit" class="description-credit"></p><button id="view-current-art" type="button">View artwork & details ↗</button></aside>
+  <p id="gallery-status" class="sr-only" role="status"></p>
+  <footer><span id="scroll-hint">SCROLL TO EXPLORE <span>↓</span></span><div class="progress-wrap"><span id="progress-label" aria-hidden="true">00</span><div id="checkpoint-window" aria-describedby="checkpoint-help"><div class="progress-track"><div id="progress-fill"></div><nav id="checkpoints" aria-label="Entrance and all sixteen portrait checkpoints"></nav></div></div><span aria-hidden="true">100</span></div><button id="collection-footer">16 WORKS · VIEW INDEX ↗</button><span id="checkpoint-help">Swipe the bar to see all portraits</span></footer>
   <section id="loading" role="status"><div class="loading-mark">RVASA<span>2</span></div><p id="loading-message">Preparing your visit</p><div class="loading-track"><div id="loading-fill"></div></div><small>LIGHT, SPACE & A MOMENT TO YOURSELF</small></section>
-  <dialog id="collection" aria-labelledby="collection-title"><div class="collection-head"><div><p class="eyebrow">RVASA2 / ARTWORK INDEX</p><h2 id="collection-title">The collection.</h2></div><button id="close-collection" aria-label="Close collection">Close ×</button></div><p class="collection-note">Sixteen worlds by Waneella. Select a source link to visit the artist’s original post.</p><div id="art-grid"></div><p class="credits">Artworks © Waneella. Artist credits and original sources accompany each work.</p></dialog>
+  <dialog id="collection" aria-labelledby="collection-title">
+    <div class="collection-head"><div><p class="eyebrow">RVASA2 / ARTWORK INDEX</p><h2 id="collection-title">The collection.</h2></div><button id="close-collection" aria-label="Close collection">Close ×</button></div>
+    <div id="index-view"><p class="collection-note">Sixteen worlds by Waneella. Select an artwork to look closer and read its story.</p><div id="art-grid"></div><p class="credits">Artworks © Waneella. Gallery descriptions are our own visual notes; adapted publisher notes link to their source.</p></div>
+    <section id="artwork-detail" aria-labelledby="detail-title" hidden>
+      <div class="detail-toolbar"><button id="back-to-index" type="button">← All artworks</button></div>
+      <div class="detail-layout">
+        <div id="detail-media" class="artwork-media"><img id="detail-image" alt="" draggable="false" /></div>
+        <div class="detail-copy"><p id="detail-number" class="eyebrow"></p><h3 id="detail-title" tabindex="-1"></h3><p class="detail-artist">Waneella · Pixel art</p><p id="detail-description"></p><p id="detail-credit" class="description-credit"></p><a id="detail-note-source" target="_blank" rel="noopener noreferrer" hidden>Read the publisher’s note ↗</a><a id="detail-source" target="_blank" rel="noopener noreferrer">Original artwork by Waneella ↗</a><div class="detail-navigation"><button id="previous-artwork" type="button">← Previous</button><button id="next-artwork" type="button">Next →</button></div><p class="detail-key-hint">Use ← / → to browse. Click the background or press Escape to return.</p></div>
+      </div>
+      <p id="detail-status" class="sr-only" role="status"></p>
+    </section>
+  </dialog>
   <div id="fallback" hidden><p>The 3D tour is unavailable on this device.</p><button id="fallback-collection">Explore the artwork collection ↗</button></div>
   <script type="module" src="/src/main.js"></script>
 </body>
