@@ -1,0 +1,125 @@
+{
+  "file": "D:\\Bleder\\belender models\\RVASA2.blend",
+  "backup": "C:\\Users\\aaron\\OneDrive\\Documents\\ChatGPT\\RVA\\gallery_output\\RVASA2_Before_Lighting_20261112_162156.blend",
+  "removed": [
+    "Recessed_Light_Entrance",
+    "Light_Recess_Entrance",
+    "Area_Entrance",
+    "Recessed_Light_Alcove",
+    "Light_Recess_Alcove",
+    "Area_Alcove",
+    "Recessed_Light_Right",
+    "Light_Recess_Right",
+    "Area_Right",
+    "Recessed_Light_Bottom",
+    "Light_Recess_Bottom",
+    "Area_Bottom",
+    "W_Amber_Bounce",
+    "W_Rose_Bounce"
+  ],
+  "fixtures": [
+    {
+      "artwork": "Artwork_01_Start",
+      "fixture": "Fixture_01 | Radiant",
+      "light": "W_Artwork_Spot_01",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_02_TopLeft",
+      "fixture": "Fixture_02 | Tea Time",
+      "light": "W_Artwork_Spot_02",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_03_TopRight",
+      "fixture": "Fixture_03 | Let the Moon Shine",
+      "light": "W_Artwork_Spot_03",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_04_InnerLeft",
+      "fixture": "Fixture_04 | Rainbow",
+      "light": "W_Artwork_Spot_04",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_05_InnerRight",
+      "fixture": "Fixture_05 | Copper",
+      "light": "W_Artwork_Spot_05",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_06_RightUpper",
+      "fixture": "Fixture_06 | Milk Tea",
+      "light": "W_Artwork_Spot_06",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_07_RightLower",
+      "fixture": "Fixture_07 | Hearth",
+      "light": "W_Artwork_Spot_07",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_08_BottomRight",
+      "fixture": "Fixture_08 | Night Sky",
+      "light": "W_Artwork_Spot_08",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_09_BottomMid",
+      "fixture": "Fixture_09 | Last Morning",
+      "light": "W_Artwork_Spot_09",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_10_BottomLeft",
+      "fixture": "Fixture_10 | Shimmer",
+      "light": "W_Artwork_Spot_10",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_11_DeadEnd",
+      "fixture": "Fixture_11 | Second Chance",
+      "light": "W_Artwork_Spot_11",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_12_BottomLeft",
+      "fixture": "Fixture_12 | Still Night",
+      "light": "W_Artwork_Spot_12",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_13_BottomMid",
+      "fixture": "Fixture_13 | Through the Dust",
+      "light": "W_Artwork_Spot_13",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_14_BottomMid",
+      "fixture": "Fixture_14 | Purple Fatigue",
+      "light": "W_Artwork_Spot_14",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_15_BottomMid",
+      "fixture": "Fixture_15 | Breeze",
+      "light": "W_Artwork_Spot_15",
+      "power_w": 800
+    },
+    {
+      "artwork": "Artwork_16_BottomMid",
+      "fixture": "Fixture_16 | 05:42",
+      "light": "W_Artwork_Spot_16",
+      "power_w": 800
+    }
+  ],
+  "artwork_emission": 0,
+  "architecture_and_artwork_geometry_unchanged": true,
+  "animation_unchanged": true,
+  "previous_camera_preserved": "W_Plant_Leaf.013",
+  "frame_preserved": 2303,
+  "beam_angle_deg": 100,
+  "ceiling_mounts_flush": true
+}

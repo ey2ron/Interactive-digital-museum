@@ -1,0 +1,138 @@
+[
+  {
+    "id": "radiant",
+    "title": "Radiant",
+    "source": "https://waneella.tumblr.com/post/788363093707292672/radiant-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/a7c04f21964953791865bf0b7528cf34/f56dc763ff64f525-3f/s1280x1920/f0ca1b43be4b1b4d47b116d5057e6d0867ec69c8.gifv",
+    "slot": 1,
+    "location": "Entrance",
+    "image_pixels": [
+      1200,
+      1200
+    ],
+    "image_size_m": [
+      1.3,
+      1.3
+    ],
+    "still_frame": 0
+  },
+  {
+    "id": "tea_time",
+    "title": "Tea Time",
+    "source": "https://waneella.tumblr.com/post/784549213894852608/tea-time-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/79f46c0ff4e2cd8f5efddfd0c29190de/167834bf8068b68e-8f/s1280x1920/49be166622a5c9b13b658675ae8001ae37839016.gifv",
+    "slot": 2,
+    "location": "North alcove",
+    "image_pixels": [
+      648,
+      1152
+    ],
+    "image_size_m": [
+      0.79875,
+      1.42
+    ],
+    "still_frame": 0
+  },
+  {
+    "id": "0542",
+    "title": "05:42",
+    "source": "https://waneella.tumblr.com/post/792980069085855744/0542-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/c7215424f7bc4c54eb8d960718e44a38/d6f8096b22b9c60a-b1/s1280x1920/599b9ca35b3a5da2365bbd4fa08f788b35ba26ec.gifv",
+    "slot": 3,
+    "location": "North gallery",
+    "image_pixels": [
+      600,
+      1200
+    ],
+    "image_size_m": [
+      0.71,
+      1.42
+    ],
+    "still_frame": 0
+  },
+  {
+    "id": "rainbow",
+    "title": "Rainbow",
+    "source": "https://waneella.tumblr.com/post/794067078764167168/rainbow-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/7030517c67003430fa97d445da9a673f/b77d0577d02101f8-53/s1280x1920/3433530cb3b6b64bb3a9fd26eb5bc30971f1d1e6.gifv",
+    "slot": 4,
+    "location": "West partition",
+    "image_pixels": [
+      648,
+      1092
+    ],
+    "image_size_m": [
+      0.8426373626373626,
+      1.42
+    ],
+    "still_frame": 0
+  },
+  {
+    "id": "copper",
+    "title": "Copper",
+    "source": "https://waneella.tumblr.com/post/783290469665882113/copper-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/f0a0755ba808e4a57e9bdf1a1da467b1/4d9109bb32428d27-f0/s1280x1920/f614254f60ddf568c19ba3fa577083e390ddeedf.gifv",
+    "slot": 5,
+    "location": "East partition",
+    "image_pixels": [
+      720,
+      1280
+    ],
+    "image_size_m": [
+      0.79875,
+      1.42
+    ],
+    "still_frame": 0
+  },
+  {
+    "id": "still_night",
+    "title": "Still Night",
+    "source": "https://waneella.tumblr.com/post/780735708539289600/still-night-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/3fdd5c49e199fa16829f2466052a9c20/23aa94a9f139c251-ea/s1280x1920/d699bcad89f5c626ebb9957a5f4c4242f8e8168c.gifv",
+    "slot": 6,
+    "location": "South gallery",
+    "image_pixels": [
+      1080,
+      1920
+    ],
+    "image_size_m": [
+      0.79875,
+      1.42
+    ],
+    "still_frame": 0
+  },
+  {
+    "id": "milk_tea",
+    "title": "Milk Tea",
+    "source": "https://waneella.tumblr.com/post/790081949534404608/milk-tea-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/2ee0789636811fd275380f8f0c51b821/821ab4b83602f785-26/s1280x1920/b09ed89d008eabbd36193f7eec6a165f2cba25cf.gifv",
+    "slot": 7,
+    "location": "East wing",
+    "image_pixels": [
+      1080,
+      2160
+    ],
+    "image_size_m": [
+      0.71,
+      1.42
+    ],
+    "still_frame": 0
+  },
+  {
+    "id": "last_morning",
+    "title": "Last Morning",
+    "source": "https://waneella.tumblr.com/post/757061375522652160/last-morning-patreon-youtube",
+    "image": "https://64.media.tumblr.com/3068d2d28a8d250952d220f671342933/d3f0804defe94af2-fa/s1280x1920/682496049540bfccca51ab1319dccbb2410051bb.gifv",
+    "slot": 8,
+    "location": "End wall",
+    "image_pixels": [
+      810,
+      1620
+    ],
+    "image_size_m": [
+      0.71,
+      1.42
+    ],
+    "still_frame": 0
+  }
+]

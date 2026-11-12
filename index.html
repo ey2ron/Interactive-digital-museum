@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#121717" />
+  <meta name="description" content="An intimate, scroll-led visit through RVASA2. Sixteen works by Waneella, after hours." />
+  <title>RVASA2 — After Hours</title>
+  <link rel="stylesheet" href="/src/style.css" />
+  <script type="importmap">{"imports":{"three":"/vendor/three/build/three.module.js","three/addons/":"/vendor/three/examples/jsm/"}}</script>
+</head>
+<body>
+  <a class="skip" href="#collection">Skip to the artworks</a>
+  <div id="stage" aria-label="3D gallery walkthrough"></div>
+  <div class="vignette"></div>
+  <header><a class="brand" href="#" aria-label="Return to entrance">RVASA<span>2</span></a><span class="edition">A DIGITAL GALLERY · VOL. 01</span><button id="open-collection">The collection <span>↗</span></button></header>
+  <main id="tour" aria-label="Scroll to explore the gallery">
+    <section class="intro" id="intro"><p class="eyebrow">WANEELLA / SIXTEEN WORKS</p><h1>After<br><em>hours.</em></h1><p class="intro-copy">A quiet place for luminous worlds.<br>Take your time. Let the gallery unfold.</p><button id="enter">Enter the gallery <span>↓</span></button></section>
+    <section class="ending" id="ending"><p class="eyebrow">THE END OF THIS VISIT</p><h2>Stay a little<br><em>longer.</em></h2><p>There is always another detail to find.</p><button id="restart">Return to the entrance ↖</button></section>
+  </main>
+  <aside id="art-caption" aria-live="polite"><span class="caption-rule"></span><p class="eyebrow" id="art-number"></p><h2 id="art-title"></h2><p>Waneella</p></aside>
+  <footer><span id="scroll-hint">SCROLL TO EXPLORE <span>↓</span></span><div class="progress-wrap"><span id="progress-label">00</span><div class="progress-track"><div id="progress-fill"></div></div><span>100</span></div><button id="collection-footer">16 WORKS · VIEW INDEX ↗</button></footer>
+  <section id="loading" role="status"><div class="loading-mark">RVASA<span>2</span></div><p id="loading-message">Preparing your visit</p><div class="loading-track"><div id="loading-fill"></div></div><small>LIGHT, SPACE & A MOMENT TO YOURSELF</small></section>
+  <dialog id="collection" aria-labelledby="collection-title"><div class="collection-head"><div><p class="eyebrow">RVASA2 / ARTWORK INDEX</p><h2 id="collection-title">The collection.</h2></div><button id="close-collection" aria-label="Close collection">Close ×</button></div><p class="collection-note">Sixteen worlds by Waneella. Select a source link to visit the artist’s original post.</p><div id="art-grid"></div><p class="credits">Artworks © Waneella. Artist credits and original sources accompany each work.</p></dialog>
+  <div id="fallback" hidden><p>The 3D tour is unavailable on this device.</p><button id="fallback-collection">Explore the artwork collection ↗</button></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

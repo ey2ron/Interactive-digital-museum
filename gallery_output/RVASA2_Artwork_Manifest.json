@@ -1,0 +1,242 @@
+[
+  {
+    "id": "radiant",
+    "title": "Radiant",
+    "source": "https://waneella.tumblr.com/post/788363093707292672/radiant-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/a7c04f21964953791865bf0b7528cf34/f56dc763ff64f525-3f/s1280x1920/f0ca1b43be4b1b4d47b116d5057e6d0867ec69c8.gifv",
+    "slot": "Artwork_01_Start",
+    "size_m": [
+      1.6,
+      1.6
+    ],
+    "pixels": [
+      1200,
+      1200
+    ]
+  },
+  {
+    "id": "tea_time",
+    "title": "Tea Time",
+    "source": "https://waneella.tumblr.com/post/784549213894852608/tea-time-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/79f46c0ff4e2cd8f5efddfd0c29190de/167834bf8068b68e-8f/s1280x1920/49be166622a5c9b13b658675ae8001ae37839016.gifv",
+    "slot": "Artwork_02_TopLeft",
+    "size_m": [
+      1.0406250000000001,
+      1.85
+    ],
+    "pixels": [
+      648,
+      1152
+    ]
+  },
+  {
+    "id": "moon_shine",
+    "title": "Let the Moon Shine",
+    "source": "https://waneella.tumblr.com/post/783825454371160064/let-the-moon-shine-my-art-book-and-prints-are",
+    "image": "https://64.media.tumblr.com/519ee0d46e6baeaba8ffb84f5f1c6daa/1cddc9ae4d9291d1-14/s1280x1920/816cb6fc6a950eef5e6948df76fd54571ad3e3aa.gifv",
+    "slot": "Artwork_03_TopRight",
+    "size_m": [
+      1.0406250000000001,
+      1.85
+    ],
+    "pixels": [
+      864,
+      1536
+    ]
+  },
+  {
+    "id": "rainbow",
+    "title": "Rainbow",
+    "source": "https://waneella.tumblr.com/post/794067078764167168/rainbow-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/7030517c67003430fa97d445da9a673f/b77d0577d02101f8-53/s1280x1920/3433530cb3b6b64bb3a9fd26eb5bc30971f1d1e6.gifv",
+    "slot": "Artwork_04_InnerLeft",
+    "size_m": [
+      1.097802197802198,
+      1.85
+    ],
+    "pixels": [
+      648,
+      1092
+    ]
+  },
+  {
+    "id": "copper",
+    "title": "Copper",
+    "source": "https://waneella.tumblr.com/post/783290469665882113/copper-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/f0a0755ba808e4a57e9bdf1a1da467b1/4d9109bb32428d27-f0/s1280x1920/f614254f60ddf568c19ba3fa577083e390ddeedf.gifv",
+    "slot": "Artwork_05_InnerRight",
+    "size_m": [
+      1.0406250000000001,
+      1.85
+    ],
+    "pixels": [
+      720,
+      1280
+    ]
+  },
+  {
+    "id": "milk_tea",
+    "title": "Milk Tea",
+    "source": "https://waneella.tumblr.com/post/790081949534404608/milk-tea-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/2ee0789636811fd275380f8f0c51b821/821ab4b83602f785-26/s1280x1920/b09ed89d008eabbd36193f7eec6a165f2cba25cf.gifv",
+    "slot": "Artwork_06_RightUpper",
+    "size_m": [
+      0.925,
+      1.85
+    ],
+    "pixels": [
+      1080,
+      2160
+    ]
+  },
+  {
+    "id": "hearth",
+    "title": "Hearth",
+    "source": "https://waneella.tumblr.com/post/766885250938880000/hearth-my-art-book-is-still-available-here",
+    "image": "https://64.media.tumblr.com/867fb5641370615c39dc889263ad8c49/abe06ad1b0b2618f-59/s1280x1920/608c5833f3979a3ac2869538ea19344a4575f6f2.gifv",
+    "slot": "Artwork_07_RightLower",
+    "size_m": [
+      0.925,
+      1.85
+    ],
+    "pixels": [
+      720,
+      1440
+    ]
+  },
+  {
+    "id": "night_sky",
+    "title": "Night Sky",
+    "source": "https://waneella.tumblr.com/post/752660750015823872/night-sky-patreon-youtube",
+    "image": "https://64.media.tumblr.com/9c0eaf2c00399ba848a9eadb12f1562d/46f229943c4c875d-53/s1280x1920/abdc71b355236b3520ae989e1ded3d39313a9e49.gifv",
+    "slot": "Artwork_08_BottomRight",
+    "size_m": [
+      0.925,
+      1.85
+    ],
+    "pixels": [
+      540,
+      1080
+    ]
+  },
+  {
+    "id": "last_morning",
+    "title": "Last Morning",
+    "source": "https://waneella.tumblr.com/post/757061375522652160/last-morning-patreon-youtube",
+    "image": "https://64.media.tumblr.com/3068d2d28a8d250952d220f671342933/d3f0804defe94af2-fa/s1280x1920/682496049540bfccca51ab1319dccbb2410051bb.gifv",
+    "slot": "Artwork_09_BottomMid",
+    "size_m": [
+      0.925,
+      1.85
+    ],
+    "pixels": [
+      810,
+      1620
+    ]
+  },
+  {
+    "id": "shimmer",
+    "title": "Shimmer",
+    "source": "https://waneella.tumblr.com/post/827559529383395328/shimmer",
+    "image": "https://64.media.tumblr.com/f6863b267e6dbd45c816bc8d81a297d4/2e42d2717d3bcaf6-07/s1280x1920/7e5bbdeae62e717dc3de6f0d9b0c4734a1653f0f.png",
+    "slot": "Artwork_10_BottomLeft",
+    "size_m": [
+      1.3076305220883535,
+      1.85
+    ],
+    "pixels": [
+      1056,
+      1494
+    ]
+  },
+  {
+    "id": "second_chance",
+    "title": "Second Chance",
+    "source": "https://waneella.tumblr.com/post/754537868030001152/second-chance-new-illustration-for-this-years",
+    "image": "https://64.media.tumblr.com/f243b28fbb902be3c6dcdc152f15d99b/1b528cbe420ff8d8-03/s1280x1920/1e33d4a478d0d4ea25051496beabafb0b901fc86.png",
+    "slot": "Artwork_11_DeadEnd",
+    "size_m": [
+      1.3065392354124747,
+      1.85
+    ],
+    "pixels": [
+      1053,
+      1491
+    ]
+  },
+  {
+    "id": "still_night",
+    "title": "Still Night",
+    "source": "https://waneella.tumblr.com/post/780735708539289600/still-night-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/3fdd5c49e199fa16829f2466052a9c20/23aa94a9f139c251-ea/s1280x1920/d699bcad89f5c626ebb9957a5f4c4242f8e8168c.gifv",
+    "slot": "Artwork_12_BottomLeft",
+    "size_m": [
+      1.0406250000000001,
+      1.85
+    ],
+    "pixels": [
+      1080,
+      1920
+    ]
+  },
+  {
+    "id": "through_dust",
+    "title": "Through the Dust",
+    "source": "https://waneella.tumblr.com/post/768572915028459520/through-the-dust-my-art-book-decade-is-available",
+    "image": "https://64.media.tumblr.com/60d027cfd0b13b66a730832b052c4fe3/b1fcb86086123f01-91/s1280x1920/60a70a3efe657105c74705d415ae72482c718cba.gifv",
+    "slot": "Artwork_13_BottomMid",
+    "size_m": [
+      1.2333333333333334,
+      1.85
+    ],
+    "pixels": [
+      1200,
+      1800
+    ]
+  },
+  {
+    "id": "purple_fatigue",
+    "title": "Purple Fatigue",
+    "source": "https://waneella.tumblr.com/post/770694938045399040/purple-fatigue-my-art-book-is-available-here",
+    "image": "https://64.media.tumblr.com/36162f4e8ccdd20f7aa4127e4f0a64e9/80c2cf74f21f5029-66/s1280x1920/1d8bf9f44f84e27d1e492c7a1832f163f79ca9a3.gifv",
+    "slot": "Artwork_14_BottomMid",
+    "size_m": [
+      1.0406250000000001,
+      1.85
+    ],
+    "pixels": [
+      864,
+      1536
+    ]
+  },
+  {
+    "id": "breeze",
+    "title": "Breeze",
+    "source": "https://waneella.tumblr.com/post/755729709041614848/breeze-patreon-youtube",
+    "image": "https://64.media.tumblr.com/65ee2d84ebe135467c191e89f3bb9622/2e1cdaeb800db27b-d6/s1280x1920/188aed2597daa07b0f0d9b61278e2ccd345bb96c.gifv",
+    "slot": "Artwork_15_BottomMid",
+    "size_m": [
+      0.925,
+      1.85
+    ],
+    "pixels": [
+      600,
+      1200
+    ]
+  },
+  {
+    "id": "0542",
+    "title": "05:42",
+    "source": "https://waneella.tumblr.com/post/792980069085855744/0542-my-art-book-and-prints-are-available",
+    "image": "https://64.media.tumblr.com/c7215424f7bc4c54eb8d960718e44a38/d6f8096b22b9c60a-b1/s1280x1920/599b9ca35b3a5da2365bbd4fa08f788b35ba26ec.gifv",
+    "slot": "Artwork_16_BottomMid",
+    "size_m": [
+      0.925,
+      1.85
+    ],
+    "pixels": [
+      600,
+      1200
+    ]
+  }
+]

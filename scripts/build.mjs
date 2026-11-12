@@ -1,0 +1,10 @@
+import fs from 'node:fs/promises';
+await fs.mkdir('dist',{recursive:true});
+await fs.copyFile('index.html','dist/index.html');
+await fs.cp('src','dist/src',{recursive:true});
+await fs.cp('public','dist',{recursive:true});
+await fs.mkdir('dist/vendor/three',{recursive:true});
+await fs.cp('node_modules/three/build','dist/vendor/three/build',{recursive:true});
+await fs.cp('node_modules/three/examples/jsm','dist/vendor/three/examples/jsm',{recursive:true});
+await fs.copyFile('node_modules/three/LICENSE','dist/vendor/three/LICENSE');
+console.log('Local production files ready in dist/. Nothing deployed.');

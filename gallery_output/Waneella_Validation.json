@@ -1,0 +1,67 @@
+{
+  "original_sha256": "3da38b85846ed5e55b186eba7154ca25033b35849bec70b90862fbb8507bb6cd",
+  "architecture_unchanged": true,
+  "plinths_unchanged": true,
+  "artworks": 8,
+  "packed_images": [
+    [
+      "concrete_surface_8k.png",
+      true
+    ],
+    [
+      "plaster_surface_8k.png",
+      true
+    ],
+    [
+      "Waneella | 05:42",
+      true
+    ],
+    [
+      "Waneella | Copper",
+      true
+    ],
+    [
+      "Waneella | Last Morning",
+      true
+    ],
+    [
+      "Waneella | Milk Tea",
+      true
+    ],
+    [
+      "Waneella | Radiant",
+      true
+    ],
+    [
+      "Waneella | Rainbow",
+      true
+    ],
+    [
+      "Waneella | Still Night",
+      true
+    ],
+    [
+      "Waneella | Tea Time",
+      true
+    ]
+  ],
+  "repaired_mount": 5,
+  "reopened_blend_verified": true,
+  "original_file_unchanged": true,
+  "original_objects_compared": [
+    "Walls | unified nine-segment reference layout",
+    "Empty display plinth 08",
+    "Empty display plinth 07",
+    "Empty display plinth 06",
+    "Empty display plinth 05",
+    "Empty display plinth 04",
+    "Empty display plinth 03",
+    "Empty display plinth 02",
+    "Empty display plinth 01",
+    "Continuous concrete floor | exact stepped footprint"
+  ],
+  "aspect_ratio_and_uv_verified": 8,
+  "credits_verified": 8,
+  "nearest_neighbor_textures_verified": 8,
+  "artwork_images_packed": 8
+}

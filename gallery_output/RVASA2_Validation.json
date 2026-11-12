@@ -1,0 +1,21 @@
+{
+  "architecture_unchanged": true,
+  "camera_animation_unchanged": true,
+  "camera_action_hashes": {
+    "Camera_Target_Anticipation_and_Glances": "afdbee402894365bcd8ce24efba4d37a8302810347b2e567aa396795c30d7fc8",
+    "Camera_Target_Before_Final_Focus": "2127263113c38502a2cdbeb159f893b98694163302b078746c9b1f441d9de42d",
+    "Camera_Target_Before_Natural_Walk": "24cf2e13344b69a0ce7686e63b56450d31557dae46b7e040fa620b5aa3c36932",
+    "Camera_TargetAction": "24cf2e13344b69a0ce7686e63b56450d31557dae46b7e040fa620b5aa3c36932",
+    "Gallery_Camera_Before_Natural_Walk": "fa227d87d79214998fc5390daa30f59c08974c5c9ac1b02c8471af4b27ec0d17",
+    "Gallery_Camera_Cinematic_Walk": "df5c970d2e00953a2990d09cea44b7ab228442727040fc500495741edd8adba9",
+    "Gallery_CameraAction": "fa227d87d79214998fc5390daa30f59c08974c5c9ac1b02c8471af4b27ec0d17"
+  },
+  "slot_positions_unchanged": true,
+  "artworks": 16,
+  "reoriented_slots": [
+    12,
+    13,
+    14
+  ],
+  "active_file": "D:\\Bleder\\belender models\\RVASA2.blend"
+}
