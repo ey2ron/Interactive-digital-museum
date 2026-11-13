@@ -560,7 +560,15 @@ async function init() {
     });
     const slots = new Map(artworks.map(art => [art.slot, art.id]));
     model.scene.traverse(object => { if (slots.has(object.name)) object.userData.artId = slots.get(object.name); });
-    scene.add(model.scene); ready = true; resize(); setProgress(0);
+    scene.add(model.scene);
+    // The separate emissive lettering stays sharp while the gallery uses baked light.
+    if (!model.scene.getObjectByName('W_Gallery_Subtitle')) {
+      const glow = await loader.loadAsync(base+'assets/gallery-text-glow.glb');
+      scene.add(glow.scene);
+    }
+    const additions = await loader.loadAsync(base+'assets/gallery-additions.glb');
+    scene.add(additions.scene);
+    ready = true; resize(); setProgress(0);
     walker = createFreeRoam(camera, renderer.domElement, navigation, {
       onExit: () => { if (freeRoam) setNavigationMode(false); },
       onPick: (x, y) => { const art = artworkAt(x, y); if (art) openArtwork(art); },

@@ -37,12 +37,16 @@ print('CAMERA_EXPORTED',len(samples),flush=True)
 
 s.frame_set(1)
 for ob in list(bpy.context.selected_objects): ob.select_set(False)
-environment=[]; artworks=[]
+environment=[]; artworks=[]; glowing_labels=[]
 for ob in list(s.objects):
     if ob.hide_render or any(c.name.startswith(('00_','04_','08_')) for c in ob.users_collection): continue
+    if ob.name.startswith('W_CRT_'): continue
     if ob.type not in {'MESH','FONT','CURVE','SURFACE'}: continue
     ob.hide_set(False); ob.hide_viewport=False
     if ob.name.startswith('Artwork_') and ob.type=='MESH': artworks.append(ob); continue
+    if ob.get('web_glow_role') in {'core', 'halo'}:
+        glowing_labels.append(ob)
+        continue
     if ob.type!='MESH':
         bpy.context.view_layer.objects.active=ob; ob.select_set(True)
         bpy.ops.object.convert(target='MESH'); ob=bpy.context.object; ob.select_set(False)
@@ -90,7 +94,7 @@ for ob in artworks:
                 thumb.filepath_raw=str(OUT/(item['id']+'.jpg'));thumb.file_format='JPEG';thumb.save()
                 item['thumbnail']='assets/'+item['id']+'.jpg'
 for ob in list(bpy.context.selected_objects):ob.select_set(False)
-for ob in [env]+artworks:ob.select_set(True)
+for ob in [env]+artworks+glowing_labels:ob.select_set(True)
 bpy.context.view_layer.objects.active=env
 bpy.ops.export_scene.gltf(filepath=str(OUT/'gallery.glb'),export_format='GLB',use_selection=True,export_animations=False,export_cameras=False,export_lights=False,export_yup=True)
 # Lighter mobile variant with reduced textures; identical scene coordinates.

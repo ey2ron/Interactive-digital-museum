@@ -44,6 +44,8 @@ Save changes in Blender first, then close any export already running. Run the fo
 
 The script reads the saved file in a separate Blender process; it does not save over the source. It samples Gallery_Camera with evaluated constraints, converts its coordinates to match the GLB, combines static architecture and props, bakes their lighting, and exports desktop/mobile GLBs. Baking may take several minutes. The 16 artworks retain their own sharp textures. Exported assets live in `public/assets/`. The export finishes by optimizing the embedded mobile textures.
 
+The subtitle and all 16 artwork credits have a separate emissive glow model, `public/assets/gallery-text-glow.glb`, so the small letters stay sharp over the baked gallery. Its editable Blender scene is `gallery_output/RVASA2_Glow.blend`. To regenerate only that model, run Blender with the glow scene and `scripts/export-gallery-glow.py`. The site loads the glow model alongside the existing desktop and mobile galleries.
+
 The original camera samples remain available for Blender comparisons. Interactive transitions use the PR's per-painting poses with a separate position route and a single shortest quaternion turn toward the destination. A floor collision grid, generated from the gallery geometry, guides both checkpoint flights and first-person movement. Captions appear only when the center of the view hits the painting, and stay hidden during transitions.
 
 The exported tour's `verticalFov` and `referenceAspect` come from the Blender camera's actual render framing. Portrait displays adapt the field of view up to 110 degrees; composition will vary with screen shape.
