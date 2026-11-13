@@ -112,6 +112,8 @@ function createCheckpoints() {
   checkpointIndices = viewingStops.map((_, index) => index);
   checkpointStops = checkpointIndices.map(index => stops[index]);
   $('checkpoint-window').style.setProperty('--checkpoint-count', checkpointIndices.length);
+  const total = $('progress-total');
+  if (total) total.textContent = String(artworks.length).padStart(2, '0');
   checkpoints = checkpointIndices.map((stopIndex, index) => {
     const button = document.createElement('button');
     button.type = 'button'; button.className = 'checkpoint';
@@ -206,7 +208,7 @@ function openCollection() {
     animateIndex();
   }
 }
-for (const id of ['open-collection', 'collection-footer', 'fallback-collection']) $(id).addEventListener('click', openCollection);
+for (const id of ['open-collection', 'fallback-collection']) $(id).addEventListener('click', openCollection);
 $('close-collection').addEventListener('click', () => dismissView());
 $('collection').addEventListener('click', event => {
   if (event.target.closest('button, a, .collection-head, .detail-copy, .detail-toolbar, .collection-note, .credits, #art-grid article')) return;
@@ -470,10 +472,8 @@ function updateCaption() {
     $('art-caption').classList.toggle('visible', !!chosen);
     $('art-caption').inert = !chosen;
     if (chosen) {
-      $('art-number').textContent = `WORK ${String(artworks.indexOf(chosen)+1).padStart(2,'0')} / ${artworks.length}`;
       $('art-title').textContent = chosen.title;
       $('art-description').textContent = chosen.note.description;
-      $('art-description-credit').textContent = chosen.note.credit;
       $('view-current-art').setAttribute('aria-label', `View ${chosen.title} and its details`);
     }
   }
@@ -530,9 +530,11 @@ function tick(now) {
   $('ending').classList.toggle('visible', !freeRoam && !transition && current === 1);
   const barProgress = checkpointProgress(checkpointStops, current);
   $('progress-fill').style.transform = `scaleX(${barProgress})`;
-  $('progress-label').textContent = String(Math.round(barProgress*100)).padStart(2,'0');
+  const artworkCount = artworks.length || 16;
+  const currentArt = Math.min(artworkCount, Math.max(1, Math.round(barProgress * artworkCount)));
+  $('progress-label').textContent = String(currentArt).padStart(2, '0');
   updateCheckpoints();
-  $('scroll-hint').textContent = freeRoam ? (touchLayout.matches ? 'JOYSTICK TO MOVE / DRAG RIGHT TO LOOK' : 'WASD TO MOVE / MOUSE TO LOOK / ESC TO RETURN') : current < .02 ? 'SCROLL TO EXPLORE ↓' : 'SCROLL TO NEXT VIEW ↓';
+  $('scroll-hint').textContent = freeRoam ? (touchLayout.matches ? 'JOYSTICK TO MOVE / DRAG RIGHT TO LOOK' : 'WASD TO MOVE / MOUSE TO LOOK / ESC TO RETURN / E TO VIEW ARTWORK') : current < .02 ? 'SCROLL TO EXPLORE ↓' : 'SCROLL TO NEXT VIEW ↓';
   updateCaption();
 }
 addEventListener('resize', () => { resizePending = true; if (ready) syncScroll(current); });
