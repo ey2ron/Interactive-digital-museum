@@ -246,7 +246,11 @@ function showFallback(message) {
   ready = false; transition = null; clearTimeout(settleTimer);
   $('toggle-roam').hidden = true;
   $('loading-message').textContent = message;
-  loading.classList.add('loaded'); $('fallback').hidden = false;
+  loading.classList.remove('loading-exiting');
+  loading.classList.add('loaded');
+  loading.setAttribute('aria-hidden', 'true');
+  loading.setAttribute('inert', '');
+  $('fallback').hidden = false;
   document.body.classList.add('fallback-mode');
   if (reduced) openCollection();
 }
@@ -538,6 +542,23 @@ function tick(now) {
   updateCaption();
 }
 addEventListener('resize', () => { resizePending = true; if (ready) syncScroll(current); });
+function dismissLoading() {
+  if (reduced) {
+    loading.classList.add('loaded');
+    loading.setAttribute('aria-hidden', 'true');
+    loading.setAttribute('inert', '');
+    return;
+  }
+  setTimeout(() => {
+    loading.classList.add('loading-exiting');
+    setTimeout(() => {
+      loading.classList.add('loaded');
+      loading.setAttribute('aria-hidden', 'true');
+      loading.setAttribute('inert', '');
+    }, 450);
+  }, 250);
+}
+
 async function init() {
   try {
     const responses = await Promise.all([fetch(base+'assets/camera-tour.json'), fetch(base+'assets/artworks.json'), fetch(base+'assets/artwork-notes.json'), fetch(base+'assets/stops.json'), fetch(base+'assets/navigation.json')]);
@@ -555,9 +576,7 @@ async function init() {
     scene = new THREE.Scene(); scene.background = new THREE.Color('#161b1b');
     camera = new THREE.PerspectiveCamera(tour.verticalFov, innerWidth/innerHeight, Math.max(.03,tour.clipNear), tour.clipFar);
     const loader = new GLTFLoader();
-    const model = await loader.loadAsync(base+'assets/'+(mobile?'gallery-mobile.glb':'gallery.glb'), event => {
-      if (event.total) $('loading-fill').style.width = `${Math.round(event.loaded/event.total*100)}%`;
-    });
+    const model = await loader.loadAsync(base+'assets/'+(mobile?'gallery-mobile.glb':'gallery.glb'));
     const slots = new Map(artworks.map(art => [art.slot, art.id]));
     model.scene.traverse(object => { if (slots.has(object.name)) object.userData.artId = slots.get(object.name); });
     scene.add(model.scene);
@@ -568,6 +587,8 @@ async function init() {
     }
     const additions = await loader.loadAsync(base+'assets/gallery-additions.glb');
     scene.add(additions.scene);
+    // Pre-warm WebGL shader programs and GPU textures to avoid first-frame camera hitching
+    renderer.compile(scene, camera);
     ready = true; resize(); setProgress(0);
     walker = createFreeRoam(camera, renderer.domElement, navigation, {
       onExit: () => { if (freeRoam) setNavigationMode(false); },
@@ -581,8 +602,11 @@ async function init() {
     joystick = connectJoystick($('roam-joystick'), (x, z) => walker.setMoveAxis(x, z));
     connectArtworkPicking();
     $('toggle-roam').disabled = false;
-    loading.classList.add('loaded');
     requestAnimationFrame(tick);
-  } catch (error) { console.error(error); showFallback(error.message); }
+    dismissLoading();
+  } catch (error) {
+    console.error(error);
+    showFallback(error.message);
+  }
 }
 init();
