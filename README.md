@@ -66,6 +66,12 @@ The exported tour's `verticalFov` and `referenceAspect` come from the Blender ca
 - Descriptions and image alt text live in `public/assets/artwork-notes.json`, preserved independently of Blender exports. Publisher adaptations link to their source; original gallery text is labelled **Gallery description**. Research details and limitations are in `docs/artwork-descriptions.md`.
 - Scene lighting is baked for performance. Glossy reflections and tone mapping may differ from the Cycles render; geometry, route, and evaluated camera gaze are retained.
 
+## Deploying to Vercel
+
+Import the repository with the root directory set to the folder containing `package.json` and `vercel.json`. Use the **Other** framework preset. The checked-in `vercel.json` runs `npm run build` and publishes `dist`, including the homepage, local Three.js dependencies, and gallery assets. Do not use `public` as the output directory; it contains only assets and has no homepage.
+
+After committing and pushing deployment changes, deploy the latest commit in Vercel. If project settings override the build configuration, set **Build Command** to `npm run build` and **Output Directory** to `dist`. The local `npm run dev` server is for development and is not needed on Vercel.
+
 ## Before publishing in the future
 
 Review the tour on your target phone and confirm artwork-use permissions and final copy. Current artwork credits identify Waneella with original source links. The website makes no requests to artwork hosts until a visitor explicitly opens an original source link. All rendering dependencies are served locally; the build copies them into dist/vendor.
