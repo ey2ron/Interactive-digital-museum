@@ -5,6 +5,7 @@ import { createNavigation, createPortraitFlight, smoothTravel, nearestViewingSto
 import { createFreeRoam } from './free-roam.js';
 import { connectJoystick } from './joystick.js';
 import { createCollectionPlayback } from './collection-playback.js';
+import { createBackgroundMusic } from './background-music.js';
 
 const $ = id => document.getElementById(id);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -12,6 +13,8 @@ const mobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
 const touchLayout = matchMedia('(pointer: coarse)');
 const portraitLayout = matchMedia('(orientation: portrait)');
 const base = new URL('.', document.baseURI).pathname;
+const music = createBackgroundMusic({ buttons: [...document.querySelectorAll('[data-music-toggle]')], statuses: [...document.querySelectorAll('[data-music-status]')], url: base+'assets/audio/first-light-particles-loop.mp3' });
+music.setReady();
 let tour, artworks = [], collectionArtworks = [], detailArtworks = [], renderer, camera, scene, ready = false, current = 0, desired = 0;
 const collectionPlayback = createCollectionPlayback({ root: $('collection'), toggle: $('toggle-collection-motion'), status: $('collection-motion-status'), reducedMotion: reduced });
 let lastTime = performance.now(), lastDrawn = -1, lastCaption = '', resizePending = true;
@@ -252,9 +255,7 @@ function showFallback(message) {
   const loadingMessage = $('loading-message');
   if (loadingMessage) loadingMessage.textContent = message;
   loading.classList.remove('loading-exiting');
-  loading.classList.add('loaded');
-  loading.setAttribute('aria-hidden', 'true');
-  loading.setAttribute('inert', '');
+  finishLoading();
   $('fallback').hidden = false;
   document.body.classList.add('fallback-mode');
   if (reduced) openCollection();
@@ -566,19 +567,20 @@ function tick(now) {
   updateCaption();
 }
 addEventListener('resize', () => { resizePending = true; if (ready) syncScroll(current); });
+function finishLoading() {
+  loading.classList.add('loaded');
+  loading.setAttribute('aria-hidden', 'true');
+  loading.setAttribute('inert', '');
+}
 function dismissLoading() {
   if (reduced) {
-    loading.classList.add('loaded');
-    loading.setAttribute('aria-hidden', 'true');
-    loading.setAttribute('inert', '');
+    finishLoading();
     return;
   }
   setTimeout(() => {
     loading.classList.add('loading-exiting');
     setTimeout(() => {
-      loading.classList.add('loaded');
-      loading.setAttribute('aria-hidden', 'true');
-      loading.setAttribute('inert', '');
+      finishLoading();
     }, 450);
   }, 250);
 }

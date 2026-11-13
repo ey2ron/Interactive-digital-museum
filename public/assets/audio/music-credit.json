@@ -1,0 +1,15 @@
+{
+  "title": "First Light Particles",
+  "artist": "Yoiyami",
+  "source": "https://opengameart.org/content/first-light-particles-%E2%80%93-cc0-atmospheric-pianoambient-track",
+  "originalFile": "https://opengameart.org/sites/default/files/first_light_particles_0.wav",
+  "license": "CC0 1.0 Universal",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "file": "assets/audio/first-light-particles-loop.mp3",
+  "duration": 129.7,
+  "bytes": 2178998,
+  "sha256": "f65c03a35ef85b184614e997821d9bc05a8be8a0363afd5fb2c754b667bc88f6",
+  "edit": "Silence trimmed, loudness normalized to -18 LUFS, two-second linear tail-to-head crossfade and quiet loop boundary; gapless MP3 metadata retained.",
+  "defaultVolume": 0.2,
+  "seamPeakStep": 0.00033670119591988623
+}

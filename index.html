@@ -13,7 +13,8 @@
   <a class="skip" href="#collection">Skip to the artworks</a>
   <div id="stage" aria-label="3D gallery walkthrough"></div>
   <div class="vignette"></div>
-  <header><a class="brand" href="#" aria-label="Return to entrance">WANEELLA</a><span class="edition"></span><div class="header-actions"><button id="toggle-roam" type="button" aria-pressed="false" title="Explore with WASD and mouse look" disabled>Free roam</button><button id="open-collection">The collection  ↗</button></div></header>
+  <header><a class="brand" href="#" aria-label="Return to entrance">WANEELLA</a><span class="edition"></span><div class="header-actions"><button id="toggle-roam" type="button" aria-pressed="false" title="Explore with WASD and mouse look" disabled>Free roam</button><button class="music-toggle" data-music-toggle data-enabled="true" type="button" aria-pressed="true" aria-label="Turn music off"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path class="sound-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-muted" d="m16 9 5 6m0-6-5 6"/></svg></button><button id="open-collection">The collection  ↗</button></div></header>
+  <p class="sr-only" data-music-status role="status"></p>
   <main id="tour" aria-label="Scroll to explore the gallery">
     <section class="intro" id="intro"><p class="eyebrow"></p><h1>After<br><em>hours.</em></h1><p class="intro-copy">A quiet place for luminous worlds.<br>Take your time. Let the gallery unfold.</p><button id="enter"> <span></span></button></section>
     <section class="ending" id="ending"><p class="eyebrow">THE END OF THIS VISIT</p><h2>Stay a little<br><em>longer.</em></h2><p>There is always another detail to find.</p><button id="restart">Return to the entrance ↖</button></section>
@@ -36,7 +37,8 @@
     </div>
   </section>
   <dialog id="collection" aria-labelledby="collection-title">
-    <div class="collection-head"><div><p class="eyebrow">WANEELLA / ARTWORK INDEX</p><h2 id="collection-title">The collection.</h2></div><button id="close-collection" aria-label="Close collection">Close ×</button></div>
+    <div class="collection-head"><div><p class="eyebrow">WANEELLA / ARTWORK INDEX</p><h2 id="collection-title">The collection.</h2></div><nav class="collection-actions" aria-label="Collection controls"><button class="music-toggle" data-music-toggle data-enabled="true" type="button" aria-pressed="true" aria-label="Turn music off"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path class="sound-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-muted" d="m16 9 5 6m0-6-5 6"/></svg></button><button id="close-collection" aria-label="Close collection">Close ×</button></nav></div>
+    <p class="sr-only" data-music-status role="status"></p>
     <div id="index-view">
       <div class="collection-intro"><p class="collection-note">Moving worlds from Waneella’s YouTube channel. Linger over a silent loop, or select a scene to watch the full film with music by e.sanchillo.</p><button id="toggle-collection-motion" type="button" aria-pressed="false">Pause animations</button></div>
       <p id="collection-motion-status" class="sr-only" role="status"></p>
@@ -59,6 +61,7 @@
         </div>
       </section>
       <p class="credits">Artworks © Waneella. Gallery descriptions are our own visual notes; adapted publisher notes link to their source.</p>
+      <p class="music-credit">Background music: <a href="https://opengameart.org/content/first-light-particles-%E2%80%93-cc0-atmospheric-pianoambient-track" target="_blank" rel="noopener noreferrer">“First Light Particles” by Yoiyami ↗</a> · CC0. Edited for continuous looping.</p>
     </div>
     <section id="artwork-detail" aria-labelledby="detail-title" hidden>
       <div class="detail-toolbar"><button id="back-to-index" type="button">← All artworks</button></div>

@@ -27,6 +27,8 @@ The index fades in over the museum. Artwork details use a transparent overlay wi
 
 ## Checks
 
+Background music is **First Light Particles** by **Yoiyami** (CC0), a soft ambient piano piece, edited into a continuous local loop. It requests playback automatically as soon as the audio loads, independently of the gallery preloader. Each fresh visit starts with music enabled; the speaker button beside Free roam and its counterpart in the collection share the current on/off state. Browser autoplay restrictions may still require a visitor interaction. Music fades to 20%, pauses in hidden tabs, and continues across app views. See [music sources and playback details](docs/background-music.md).
+
 The collection uses twelve silent MP4 loops with still posters, a pause control, and reduced-motion support. It plays only visible previews and keeps the museum's sixteen paintings and navigation separate. Sources, media details, verification and regeneration instructions are in [the animated collection note](docs/animated-collection.md).
 
 ```sh
