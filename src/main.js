@@ -6,12 +6,14 @@ import { createFreeRoam } from './free-roam.js';
 import { connectJoystick } from './joystick.js';
 import { createCollectionPlayback } from './collection-playback.js';
 import { createBackgroundMusic } from './background-music.js';
+import { connectSwipe } from './swipe.js';
 
 const $ = id => document.getElementById(id);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
 const touchLayout = matchMedia('(pointer: coarse)');
 const portraitLayout = matchMedia('(orientation: portrait)');
+const compactLayout = matchMedia('(max-width: 1024px), (pointer: coarse) and (max-width: 1366px)');
 const base = new URL('.', document.baseURI).pathname;
 const music = createBackgroundMusic({ buttons: [...document.querySelectorAll('[data-music-toggle]')], statuses: [...document.querySelectorAll('[data-music-status]')], url: base+'assets/audio/first-light-particles-loop.mp3' });
 music.setReady();
@@ -22,7 +24,7 @@ const position = new THREE.Vector3(), quaternion = new THREE.Quaternion();
 const loading = $('loading');
 let stops = [], viewingStops = [], arc, checkpointStops = [], checkpointIndices = [], checkpoints = [], activeStop = 0, transition = null;
 let visibleCheckpoint = -1;
-let lastWheel = -Infinity, settleTimer, expectedScroll = null, touchStart = null;
+let lastWheel = -Infinity, settleTimer, expectedScroll = null;
 let freeRoam = false, captionArt = null, detailIndex = -1, detailOrigin = 'index', indexScroll = 0;
 let detailTrigger = null, pointerStart = null;
 let viewAnimations = [];
@@ -34,6 +36,7 @@ function setNavigationMode(free, returnToNearest = true) {
   if (free && (!ready || (touchLayout.matches && portraitLayout.matches))) return;
   const wasFree = freeRoam;
   freeRoam = !!free;
+  resizePending = true;
   clearTimeout(settleTimer); transition = null; desired = current;
   activeStop = ready && wasFree ? nearestViewingStop(viewingStops, camera.position) : nearestStop(stops, current);
   walker?.setActive(freeRoam);
@@ -175,22 +178,16 @@ addEventListener('keydown', event => {
     else moveOneStop(Math.sign(target - activeStop));
   }
 });
-addEventListener('touchstart', event => {
-  touchStart = ready && !reduced && !freeRoam && !$('collection').open && !scrollingCaption(event.target) && !event.target.closest?.('#checkpoint-window') && event.touches.length === 1
-    ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
-}, { passive: true });
-addEventListener('touchmove', event => {
-  if (touchStart && event.touches.length === 1 && !$('collection').open) event.preventDefault();
-  else touchStart = null;
-}, { passive: false });
-addEventListener('touchend', event => {
-  if (!touchStart) return;
-  const dx = touchStart.x - event.changedTouches[0].clientX;
-  const dy = touchStart.y - event.changedTouches[0].clientY;
-  touchStart = null;
-  if (!transition && !$('collection').open && Math.abs(dy) > 40 && Math.abs(dy) > Math.abs(dx)) moveOneStop(Math.sign(dy));
-}, { passive: true });
-addEventListener('touchcancel', () => { touchStart = null; });
+connectSwipe(document, {
+  enabled: () => ready && !reduced && !freeRoam && !$('collection').open,
+  ignore: target => !!target.closest?.('header, footer, button, a, #roam-help') || scrollingCaption(target),
+  onSwipe: direction => { if (!transition) moveOneStop(direction); }
+});
+connectSwipe($('detail-media'), {
+  enabled: () => $('collection').open && detailIndex >= 0 && !dismissing,
+  horizontalOnly: true,
+  onSwipe: browseArtwork
+});
 addEventListener('scroll', () => {
   if (!ready || reduced || transition || Math.abs(scrollY - expectedScroll) < 2) return;
   if (freeRoam) { syncScroll(current); return; }
@@ -284,7 +281,12 @@ function createIndex() {
     title.append(titleLink);
     const artist = document.createElement('p'); artist.className = 'artwork-card-artist'; artist.textContent = 'Waneella · Animated pixel art';
     const description = document.createElement('p'); description.className = 'artwork-card-description'; description.textContent = art.note.description;
-    const source = document.createElement('a'); source.href = art.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.textContent = 'Watch the full film on YouTube ↗';
+    const source = document.createElement('a'); source.href = art.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.textContent = 'Watch the full film on YouTube ';
+    const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    arrow.setAttribute('class', 'direction-arrow'); arrow.setAttribute('viewBox', '0 0 16 16');
+    arrow.setAttribute('aria-hidden', 'true'); arrow.setAttribute('focusable', 'false');
+    const arrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    arrowPath.setAttribute('d', 'M3 13 13 3M3 3h10v10'); arrow.append(arrowPath); source.append(arrow);
     copy.append(title, artist, description, source);
     view.append(image, video);
     article.append(view, copy); $('art-grid').append(article);
@@ -483,11 +485,20 @@ function resize() {
   camera.fov = THREE.MathUtils.radToDeg(camera.aspect < tour.referenceAspect
     ? Math.min(THREE.MathUtils.degToRad(110), 2 * Math.atan(Math.tan(vFov / 2) * tour.referenceAspect / camera.aspect))
     : vFov);
+  // Leave room below the painting for the phone/tablet caption in guided mode.
+  if (compactLayout.matches && portraitLayout.matches && !freeRoam) {
+    camera.setViewOffset(width, height, 0, height * .1, width, height);
+  } else if (compactLayout.matches && height <= 650 && !freeRoam) {
+    // Short landscape screens need space for both the header and checkpoint bar.
+    camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * 1.5));
+    camera.setViewOffset(width, height, 0, height * .04, width, height);
+  } else camera.clearViewOffset();
   camera.updateProjectionMatrix(); resizePending = false;
 }
 function updateCaption() {
   // The centre of the view must actually hit the painting, with no wall in between.
-  raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+  const focusY = camera.view?.enabled ? 2 * camera.view.offsetY / camera.view.fullHeight : 0;
+  raycaster.setFromCamera(new THREE.Vector2(0, focusY), camera);
   const hit = raycaster.intersectObjects(scene.children, true)[0];
   let chosen = !transition && hit?.distance < 8 ? artFromHit(hit) : null;
   if (chosen && !freeRoam) {
@@ -563,7 +574,7 @@ function tick(now) {
   const currentArt = Math.min(artworkCount, Math.max(1, Math.round(barProgress * artworkCount)));
   $('progress-label').textContent = String(currentArt).padStart(2, '0');
   updateCheckpoints();
-  $('scroll-hint').textContent = freeRoam ? (touchLayout.matches ? 'JOYSTICK TO MOVE / DRAG RIGHT TO LOOK' : 'WASD TO MOVE / MOUSE TO LOOK / ESC TO RETURN / E TO VIEW ARTWORK') : current < .02 ? 'SCROLL TO EXPLORE ↓' : 'SCROLL TO NEXT VIEW ↓';
+  $('scroll-hint').textContent = freeRoam ? (touchLayout.matches ? 'JOYSTICK TO MOVE / DRAG RIGHT TO LOOK' : 'WASD TO MOVE / MOUSE TO LOOK / ESC TO RETURN / E TO VIEW ARTWORK') : compactLayout.matches || touchLayout.matches ? 'SWIPE TO EXPLORE · LEFT / RIGHT' : current < .02 ? 'SCROLL TO EXPLORE ↓' : 'SCROLL TO NEXT VIEW ↓';
   updateCaption();
 }
 addEventListener('resize', () => { resizePending = true; if (ready) syncScroll(current); });

@@ -213,6 +213,76 @@ footer #scroll-hint{width:auto;text-align:left}
   .free-roam #scroll-hint{font-size:8px;letter-spacing:1px}
 }
 
+.direction-arrow{display:inline-block;width:1em;height:1em;vertical-align:-.1em;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+#art-grid .artwork-card-copy>a .direction-arrow{margin-left:.35em;flex-shrink:0}
+#detail-swipe-hint{display:none}
+
+/* Touch layouts keep the painting above the caption and leave taps to the canvas. */
+@media(max-width:1024px),(pointer:coarse) and (max-width:1366px){
+  header{padding: max(16px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) 16px max(20px,env(safe-area-inset-left));gap:12px}
+  .header-actions{gap:12px}
+  #open-collection{min-height:44px;white-space:nowrap}
+  footer{padding-bottom:max(14px,env(safe-area-inset-bottom));padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));gap:2px 12px}
+  footer #scroll-hint{grid-column:1/-1;text-align:center;line-height:1.6}
+  #checkpoint-help{display:block;line-height:1.6}
+  .progress-wrap .progress-track{--checkpoint-spacing:44px}
+  .checkpoint{width:44px}
+  #art-caption{left:max(20px,env(safe-area-inset-left));right:max(20px,env(safe-area-inset-right));bottom:calc(120px + env(safe-area-inset-bottom));max-width:560px;max-height:34svh;padding:12px 0;overflow:visible}
+  #art-caption.visible{pointer-events:none}
+  #view-current-art{pointer-events:auto;width:fit-content;min-height:44px;font-size:12px}
+  #art-caption .caption-rule{margin-bottom:10px}
+  #art-caption h2{font-size:28px}
+  #art-description{font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .ending{top:max(90px,calc(env(safe-area-inset-top) + 76px));bottom:auto;right:max(20px,env(safe-area-inset-right));max-width:210px;padding:14px}
+  .ending h2{font-size:27px}
+  #collection{margin:0;height:100dvh;padding-top:max(24px,env(safe-area-inset-top));padding-bottom:max(24px,env(safe-area-inset-bottom));overflow-x:hidden;overscroll-behavior:contain}
+  .collection-head{gap:16px;align-items:flex-start}
+  .collection-head .eyebrow{font-size:8px;letter-spacing:1.3px}
+  .collection-head h2{font-size:clamp(30px,5vw,48px)}
+  .collection-actions{flex-shrink:0;gap:12px}
+  #collection.viewing-artwork{padding-top:max(20px,env(safe-area-inset-top))}
+  .viewing-artwork .collection-head{top:max(20px,env(safe-area-inset-top))}
+  .viewing-artwork .detail-toolbar{padding-right:140px;min-height:44px}
+  .detail-layout{grid-template-columns:minmax(0,1fr);gap:24px}
+  .viewing-artwork .detail-layout{min-height:0}
+  .viewing-artwork .artwork-media{height:46svh;min-height:180px;touch-action:pan-y pinch-zoom}
+  #detail-description{max-width:none}
+  .detail-key-hint{display:none}
+  #detail-swipe-hint{display:block;text-align:center;font-size:11px;color:var(--muted);margin:24px 0 0}
+  #art-grid article,#art-grid article:nth-child(even){grid-template-columns:minmax(0,1fr);row-gap:24px}
+  #art-grid article:nth-child(even) .artwork-card-media,#art-grid article:nth-child(even) .artwork-card-copy{grid-column:1;grid-row:auto;justify-self:start}
+  #artist-about{grid-template-columns:1fr;gap:28px}
+}
+@media(max-width:480px){
+  .brand{font-size:20px}
+  .header-actions{gap:8px}
+  #art-caption h2{font-size:26px}
+  #art-caption .caption-artist{margin-bottom:8px}
+  #art-description{font-size:12px;margin:8px 0}
+  .collection-head h2{font-size:30px}
+  .collection-head .eyebrow{max-width:160px}
+  .collection-actions{gap:10px}
+}
+@media(max-width:1024px) and (max-height:650px),(pointer:coarse) and (max-width:1366px) and (max-height:650px){
+  #art-caption{bottom:calc(110px + env(safe-area-inset-bottom));max-height:none;max-width:420px;padding:0}
+  #art-caption .caption-rule,#art-caption .caption-artist{display:none}
+  #art-caption h2{font-size:22px;margin:4px 0}
+  #art-description{-webkit-line-clamp:2;font-size:11px;margin:4px 0;line-height:1.5}
+  #view-current-art{padding:8px 0;font-size:11px}
+  .ending{max-width:170px;padding:10px}
+  .ending h2{font-size:23px}
+  .ending>p{display:none}
+  .viewing-artwork .artwork-media{height:54svh;min-height:160px}
+}
+@media(max-width:1024px) and (orientation:landscape),(pointer:coarse) and (max-width:1366px) and (orientation:landscape){
+  #art-caption{max-width:28vw;max-height:calc(100svh - 190px)}
+  #art-caption :not(button){pointer-events:none}
+  #art-description{-webkit-line-clamp:3}
+  #collection.viewing-artwork .detail-layout{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:start}
+  .viewing-artwork .artwork-media{height:65svh}
+  .detail-copy h3{font-size:30px}
+}
+
 /* Custom scroll bar inclined to the aesthetic of the site (dark charcoal, warm amber/gold, fine hairlines) */
 ::-webkit-scrollbar {
   width: 8px;

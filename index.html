@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#121717" />
   <meta name="description" content="An intimate, scroll-led visit through RVASA2. Sixteen works by Waneella, after hours." />
   <title>WANEELLA — After Hours</title>
@@ -13,11 +13,11 @@
   <a class="skip" href="#collection">Skip to the artworks</a>
   <div id="stage" aria-label="3D gallery walkthrough"></div>
   <div class="vignette"></div>
-  <header><a class="brand" href="#" aria-label="Return to entrance">WANEELLA</a><span class="edition"></span><div class="header-actions"><button id="toggle-roam" type="button" aria-pressed="false" title="Explore with WASD and mouse look" disabled>Free roam</button><button class="music-toggle" data-music-toggle data-enabled="true" type="button" aria-pressed="true" aria-label="Turn music off"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path class="sound-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-muted" d="m16 9 5 6m0-6-5 6"/></svg></button><button id="open-collection">The collection  ↗</button></div></header>
+  <header><a class="brand" href="#" aria-label="Return to entrance">WANEELLA</a><span class="edition"></span><div class="header-actions"><button id="toggle-roam" type="button" aria-pressed="false" title="Explore with WASD and mouse look" disabled>Free roam</button><button class="music-toggle" data-music-toggle data-enabled="true" type="button" aria-pressed="true" aria-label="Turn music off"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path class="sound-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-muted" d="m16 9 5 6m0-6-5 6"/></svg></button><button id="open-collection">The collection <svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></button></div></header>
   <p class="sr-only" data-music-status role="status"></p>
   <main id="tour" aria-label="Scroll to explore the gallery">
     <section class="intro" id="intro"><p class="eyebrow"></p><h1>After<br><em>hours.</em></h1><p class="intro-copy">A quiet place for luminous worlds.<br>Take your time. Let the gallery unfold.</p><button id="enter"> <span></span></button></section>
-    <section class="ending" id="ending"><p class="eyebrow">THE END OF THIS VISIT</p><h2>Stay a little<br><em>longer.</em></h2><p>There is always another detail to find.</p><button id="restart">Return to the entrance ↖</button></section>
+    <section class="ending" id="ending"><p class="eyebrow">THE END OF THIS VISIT</p><h2>Stay a little<br><em>longer.</em></h2><p>There is always another detail to find.</p><button id="restart">Return to the entrance <svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13 13 3 3M13 3H3v10"/></svg></button></section>
   </main>
   <aside id="art-caption" aria-label="Current artwork details" aria-live="polite" tabindex="0" inert><span class="caption-rule"></span><h2 id="art-title"></h2><p class="caption-artist">Waneella</p><p id="art-description"></p><button id="view-current-art" type="button">View artwork & details</button></aside>
   <aside id="roam-help" aria-label="Free roam controls" hidden>
@@ -48,31 +48,32 @@
         <div class="artist-about-copy">
           <p>Waneella is the pixel artist Valeriya Sanchilo. With a background in animation, she creates intricate urban scenes that bring the visual language of classic video games into richly detailed, atmospheric worlds.</p>
           <p>Her work moves between illustrations, prints and ambient animations, with music by e.sanchillo. Her books <em>Decade</em> and <em>Pixelscapes</em> offer a closer look at her artwork and creative process.</p>
-          <p class="artist-bio-source">More about the artist at <a href="https://www.thamesandhudsonusa.com/contributors/waneella" target="_blank" rel="noopener noreferrer">Thames &amp; Hudson ↗</a></p>
+          <p class="artist-bio-source">More about the artist at <a href="https://www.thamesandhudsonusa.com/contributors/waneella" target="_blank" rel="noopener noreferrer">Thames &amp; Hudson <svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></a></p>
           <nav class="artist-socials" aria-label="Waneella’s official website and social links">
-            <a href="https://waneella.com/" target="_blank" rel="noopener noreferrer">Website <span aria-hidden="true">↗</span></a>
-            <a href="https://www.instagram.com/waneella/" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
-            <a href="https://waneella.tumblr.com/" target="_blank" rel="noopener noreferrer">Tumblr <span aria-hidden="true">↗</span></a>
-            <a href="https://www.youtube.com/c/waneella" target="_blank" rel="noopener noreferrer">YouTube <span aria-hidden="true">↗</span></a>
-            <a href="https://x.com/waneella_" target="_blank" rel="noopener noreferrer">X / Twitter <span aria-hidden="true">↗</span></a>
-            <a href="https://bsky.app/profile/waneella.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky <span aria-hidden="true">↗</span></a>
-            <a href="https://www.patreon.com/waneella" target="_blank" rel="noopener noreferrer">Patreon <span aria-hidden="true">↗</span></a>
+            <a href="https://waneella.com/" target="_blank" rel="noopener noreferrer">Website <span aria-hidden="true"><svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></span></a>
+            <a href="https://www.instagram.com/waneella/" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true"><svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></span></a>
+            <a href="https://waneella.tumblr.com/" target="_blank" rel="noopener noreferrer">Tumblr <span aria-hidden="true"><svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></span></a>
+            <a href="https://www.youtube.com/c/waneella" target="_blank" rel="noopener noreferrer">YouTube <span aria-hidden="true"><svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></span></a>
+            <a href="https://x.com/waneella_" target="_blank" rel="noopener noreferrer">X / Twitter <span aria-hidden="true"><svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></span></a>
+            <a href="https://bsky.app/profile/waneella.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky <span aria-hidden="true"><svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></span></a>
+            <a href="https://www.patreon.com/waneella" target="_blank" rel="noopener noreferrer">Patreon <span aria-hidden="true"><svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></span></a>
           </nav>
         </div>
       </section>
       <p class="credits">Artworks © Waneella. Gallery descriptions are our own visual notes; adapted publisher notes link to their source.</p>
-      <p class="music-credit">Background music: <a href="https://opengameart.org/content/first-light-particles-%E2%80%93-cc0-atmospheric-pianoambient-track" target="_blank" rel="noopener noreferrer">“First Light Particles” by Yoiyami ↗</a> · CC0. Edited for continuous looping.</p>
+      <p class="music-credit">Background music: <a href="https://opengameart.org/content/first-light-particles-%E2%80%93-cc0-atmospheric-pianoambient-track" target="_blank" rel="noopener noreferrer">“First Light Particles” by Yoiyami <svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></a> · CC0. Edited for continuous looping.</p>
     </div>
     <section id="artwork-detail" aria-labelledby="detail-title" hidden>
       <div class="detail-toolbar"><button id="back-to-index" type="button">← All artworks</button></div>
       <div class="detail-layout">
-        <div id="detail-media" class="artwork-media"><img id="detail-image" alt="" draggable="false" /></div>
-        <div class="detail-copy"><p id="detail-number" class="eyebrow"></p><h3 id="detail-title" tabindex="-1"></h3><p class="detail-artist">Waneella · Pixel art</p><p id="detail-description"></p><p id="detail-credit" class="description-credit"></p><a id="detail-note-source" target="_blank" rel="noopener noreferrer" hidden>Read the publisher’s note ↗</a><a id="detail-source" target="_blank" rel="noopener noreferrer">Original artwork by Waneella ↗</a><div class="detail-navigation"><button id="previous-artwork" type="button">← Previous</button><button id="next-artwork" type="button">Next →</button></div><p class="detail-key-hint">Use ← / → to browse. Click the background or press Escape to return.</p></div>
+        <div id="detail-media" class="artwork-media" aria-describedby="detail-swipe-hint"><img id="detail-image" alt="" draggable="false" /></div>
+        <div class="detail-copy"><p id="detail-number" class="eyebrow"></p><h3 id="detail-title" tabindex="-1"></h3><p class="detail-artist">Waneella · Pixel art</p><p id="detail-description"></p><p id="detail-credit" class="description-credit"></p><a id="detail-note-source" target="_blank" rel="noopener noreferrer" hidden>Read the publisher’s note <svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></a><a id="detail-source" target="_blank" rel="noopener noreferrer">Original artwork by Waneella <svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></a><div class="detail-navigation"><button id="previous-artwork" type="button">← Previous</button><button id="next-artwork" type="button">Next →</button></div><p class="detail-key-hint">Use ← / → to browse. Click the background or press Escape to return.</p></div>
       </div>
+      <p id="detail-swipe-hint">Swipe left or right on the artwork to browse.</p>
       <p id="detail-status" class="sr-only" role="status"></p>
     </section>
   </dialog>
-  <div id="fallback" hidden><p>The 3D tour is unavailable on this device.</p><button id="fallback-collection">Explore the artwork collection ↗</button></div>
+  <div id="fallback" hidden><p>The 3D tour is unavailable on this device.</p><button id="fallback-collection">Explore the artwork collection <svg class="direction-arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 13 13 3M3 3h10v10"/></svg></button></div>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

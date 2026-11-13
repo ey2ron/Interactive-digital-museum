@@ -20,5 +20,5 @@ const server = http.createServer((req,res) => {
     fs.createReadStream(file).pipe(res);
   });
 });
-server.listen(5173,'127.0.0.1',()=>console.log('RVASA2 is ready: http://127.0.0.1:5173'));
+server.listen(5173,'0.0.0.0',()=>console.log('RVASA2 is ready: http://localhost:5173 (also available on your local network)'));
 server.on('error',error=>{console.error(error.message);process.exitCode=1;});
