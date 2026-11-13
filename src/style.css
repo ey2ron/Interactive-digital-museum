@@ -98,6 +98,42 @@ body.collection-open header,body.collection-open footer,body.collection-open #to
 @media(max-width:760px){#collection.viewing-artwork{padding:24px 6%}.viewing-artwork .collection-head{top:24px}.viewing-artwork .detail-toolbar{padding-right:70px;margin-bottom:20px;gap:12px}.viewing-artwork .detail-layout{min-height:0;gap:24px}.viewing-artwork .artwork-media{height:48svh;min-height:240px}#art-caption{padding:12px 0}}
 @media(prefers-reduced-motion:reduce){#collection[open]::backdrop{animation:none}.artwork-card:hover img{transform:none}}
 
+/* A loose rhythm of larger scenes and smaller, inset works. */
+#collection:not(.viewing-artwork){padding-inline:clamp(24px,5vw,100px)}
+#art-grid{display:flex;flex-direction:column;gap:clamp(72px,7vw,110px);width:100%;max-width:1500px;margin:clamp(48px,5vw,76px) auto 0}
+#art-grid article{display:grid;grid-template-columns:minmax(0,var(--media-column,1.1fr)) minmax(290px,var(--copy-column,.9fr));column-gap:clamp(40px,5vw,90px);align-items:start;width:var(--row-width,100%);align-self:var(--row-align,stretch)}
+#art-grid article:nth-child(even){grid-template-columns:minmax(290px,var(--copy-column,.9fr)) minmax(0,var(--media-column,1.1fr))}
+#art-grid article{position:relative}
+#art-grid article+article::before{content:'';position:absolute;top:calc(clamp(72px,7vw,110px)/-2);left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,#ddd4bb24 15%,#ddd4bb24 85%,transparent);pointer-events:none}
+#art-grid article:nth-child(even) .artwork-card-media{grid-column:2;grid-row:1;justify-self:end}
+#art-grid article:nth-child(even) .artwork-card-copy{grid-column:1;grid-row:1}
+#art-grid .artwork-card-media{display:block;justify-self:start;width:fit-content;max-width:100%;padding:0;line-height:0;overflow:hidden;box-shadow:0 12px 32px #0004,0 0 0 1px #ffffff12;transition:transform .4s ease,box-shadow .4s ease}
+#art-grid .artwork-card-media:hover{transform:translateY(-2px);box-shadow:0 16px 36px #0006,0 0 0 1px #d5ba8640}
+#art-grid article img{display:block;width:auto;max-width:100%;height:auto;max-height:var(--art-height,clamp(300px,58svh,600px));margin:0;object-fit:contain;image-rendering:pixelated;filter:none}
+#art-grid .artwork-card-media:hover img{transform:none;filter:none}
+#art-grid .artwork-card-copy{min-width:0;padding-top:0;max-width:440px}
+#art-grid .artwork-card-copy::before{display:none}
+#art-grid h3{font:400 clamp(34px,3.3vw,60px)/1.08 Georgia,'Times New Roman',serif;letter-spacing:-.035em;margin:0 0 18px}
+#art-grid .artwork-card-title{font:inherit;color:inherit;text-decoration:none;padding:0;text-align:left;line-height:inherit;letter-spacing:inherit;transition:color .2s}
+#art-grid .artwork-card-title:hover{color:var(--accent)}
+#art-grid .artwork-card-artist{font-size:11px;letter-spacing:.06em;color:#c3b697;margin:0 0 24px}
+#art-grid .artwork-card-description{font-size:clamp(14px,1.1vw,16px);line-height:1.8;max-width:44ch;margin:0 0 18px;color:#cfcec5}
+#art-grid .artwork-card-copy>a{display:inline-flex;align-items:center;min-height:44px;padding:10px 0 8px;border-bottom:1px solid #d5ba8640;font-size:11px;letter-spacing:.02em;color:#d5c6a6;transition:border-color .2s,color .2s}
+#art-grid .artwork-card-copy>a:hover{color:#fff2d7;border-color:#fff2d7}
+@media(min-width:1000px){
+  #art-grid article:nth-child(6n+1){--row-width:96%;--row-align:flex-start;--media-column:1.2fr;--copy-column:.8fr}
+  #art-grid article:nth-child(6n+2){--row-width:83%;--row-align:flex-end;--media-column:.85fr;--copy-column:1fr;--art-height:clamp(300px,48svh,480px)}
+  #art-grid article:nth-child(6n+3){--row-width:90%;--row-align:flex-start;--media-column:1fr;--copy-column:1fr;--art-height:clamp(340px,62svh,620px);margin-top:18px}
+  #art-grid article:nth-child(6n+4){--row-width:95%;--row-align:flex-end;--media-column:1.25fr;--copy-column:.85fr;--art-height:clamp(300px,54svh,540px)}
+  #art-grid article:nth-child(6n+5){--row-width:84%;--row-align:center;--media-column:.9fr;--copy-column:1fr;--art-height:clamp(300px,49svh,490px)}
+  #art-grid article:nth-child(6n){--row-width:91%;--row-align:flex-end;--media-column:1.15fr;--copy-column:.85fr;--art-height:clamp(320px,60svh,580px);margin-top:12px}
+}
+@media(max-width:760px){#art-grid{gap:64px;margin-top:40px}#art-grid article,#art-grid article:nth-child(even){grid-template-columns:minmax(0,1fr);row-gap:24px}#art-grid article:nth-child(even) .artwork-card-media,#art-grid article:nth-child(even) .artwork-card-copy{grid-column:1;grid-row:auto;justify-self:start}#art-grid article img{max-height:52svh}#art-grid h3{font-size:36px}#art-grid .artwork-card-description{max-width:46ch}}
+@media(max-width:760px){#art-grid .artwork-card-media{width:fit-content;max-width:100%}#art-grid article img{width:auto}}
+@media(max-width:760px){#art-grid article:nth-child(3n+2){width:88%;align-self:flex-end}#art-grid article:nth-child(3n){width:94%;align-self:flex-start}}
+@media(max-width:760px){#art-grid article+article::before{top:-32px}}
+@media(prefers-reduced-motion:reduce){#art-grid .artwork-card-media,#art-grid article img{transition:none}#art-grid .artwork-card-media:hover,#art-grid .artwork-card-media:hover img{transform:none}}
+
 /* One comfortably spaced checkpoint per artwork, with an entrance marker. */
 footer{display:grid;grid-template-columns:1fr auto;gap:6px 24px;padding:20px 42px 24px}
 footer #scroll-hint{width:auto;text-align:left}

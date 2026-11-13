@@ -1,0 +1,138 @@
+[
+  {
+    "id": "somewhere_outside",
+    "title": "Somewhere Outside",
+    "source": "https://waneella.tumblr.com/post/749673300944453632/somewhere-outside-patreon-youtube",
+    "image": "https://64.media.tumblr.com/68d36d5eb8d6a226e63ff756e180afc1/ec32325dc56582e0-ec/s1280x1920/f3fd5c2e2b673bbbac16bb91ebc606989d95fe20.gifv",
+    "thumbnail": "assets/somewhere_outside.jpg",
+    "pixels": [
+      720,
+      1440
+    ],
+    "artist": "Waneella",
+    "note": {
+      "alt": "A cramped nighttime alley with red lanterns, food stalls and stacked air-conditioning units overhead.",
+      "description": "Red lanterns and small shop windows warm a narrow passage crowded with machinery. The view looks up through pipes and outdoor units, finding a welcoming glow inside the city’s tangled layers.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "december",
+    "title": "December",
+    "source": "https://waneella.tumblr.com/post/736442095767896064/december-patreon-youtube",
+    "image": "https://64.media.tumblr.com/290c2c62f4219cdda107944dc3e2a3f4/2c22b79167ecdb46-bb/s1280x1920/d1b1bac02ad842932539b9bb7c487ba07b3f462f.gifv",
+    "thumbnail": "assets/december.jpg",
+    "pixels": [
+      720,
+      1440
+    ],
+    "artist": "Waneella",
+    "note": {
+      "alt": "A quiet city crossing with patches of snow, green shop signs and tall buildings beneath a clear blue sky.",
+      "description": "Patches of snow collect at the edges of a quiet crossing. A clear blue sky opens above the shopfronts and apartment blocks, letting winter daylight soften the dense geometry of the street.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "windy_path",
+    "title": "Windy Path",
+    "source": "https://waneella.tumblr.com/post/734363307468865536/windy-path-artbook-patreon-youtube",
+    "image": "https://64.media.tumblr.com/c0d42532e126a57947448abb47331002/00c2674969746c83-02/s1280x1920/856d136e8adfc28a8cd6bac366e50a054c50a3a4.gifv",
+    "thumbnail": "assets/windy_path.jpg",
+    "pixels": [
+      800,
+      1200
+    ],
+    "artist": "Waneella",
+    "note": {
+      "alt": "A narrow stepped passage between dense buildings covered in cables, pipes and air-conditioning units.",
+      "description": "A steep passage winds between buildings layered with cables, vents and pipes. The close walls frame a pale opening in the distance, drawing the eye through a maze of small urban details.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "streetlight",
+    "title": "Streetlight",
+    "source": "https://waneella.tumblr.com/post/733367042314567680/streetlight-artbook-patreon-youtube",
+    "image": "https://64.media.tumblr.com/08d78ccc8c1ad324b11328efd9e5bad9/6975607f5b2a1cfa-24/s1280x1920/a5dee478be88d79f20ae17db72d3c9aa0412c112.gifv",
+    "thumbnail": "assets/streetlight.jpg",
+    "pixels": [
+      648,
+      1152
+    ],
+    "artist": "Waneella",
+    "note": {
+      "alt": "A small bedroom with a bed, plants, a desk and a television, washed in orange light from outside.",
+      "description": "Orange light stretches across a bed and onto the floor of a small room. A desk, plants and a television gather around its edges, turning an ordinary bedroom into a quiet pocket of evening warmth.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "endless_fall",
+    "title": "Endless Fall",
+    "source": "https://waneella.tumblr.com/post/732645807296299008/endless-fall-artbook-patreon-youtube",
+    "image": "https://64.media.tumblr.com/51b1ead086c737776c7708ecab7cef22/c38499c2fba289ac-72/s1280x1920/c8b64b303c69dc445a643a800163cd1cafdc75ab.gifv",
+    "thumbnail": "assets/endless_fall.jpg",
+    "pixels": [
+      810,
+      1620
+    ],
+    "artist": "Waneella",
+    "note": {
+      "alt": "An autumn alley with tangled branches, stairs, scattered leaves and walls covered in pipes and outdoor units.",
+      "description": "Fallen leaves gather around the steps of a tightly packed alley. Bare branches reach into the same space as pipes and cables, weaving the season into the city’s busy surfaces.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "pale_moon",
+    "title": "Pale Moon",
+    "source": "https://waneella.tumblr.com/post/732102970483900416/pale-moon-artbook-patreon-youtube",
+    "image": "https://64.media.tumblr.com/4039d7d6861eae6805d84ea83d529d4d/5f8ccd0fe0aa02ec-f7/s1280x1920/185f7c4de513f4d0a358e73c13531f11db3abb79.gifv",
+    "thumbnail": "assets/pale_moon.jpg",
+    "pixels": [
+      900,
+      1500
+    ],
+    "artist": "Waneella",
+    "note": {
+      "alt": "A pale moon above a dark street, with red buildings, glowing shops, utility poles and overhead cables.",
+      "description": "A pale moon hangs above dark shopfronts and red buildings. Utility poles and overhead wires divide the muted sky, while a few illuminated windows keep the street quietly awake.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "light_moments",
+    "title": "Light Moments",
+    "source": "https://waneella.tumblr.com/post/730375161096929281/light-moments-patreon-youtube",
+    "image": "https://64.media.tumblr.com/6d037291fa6580530a7ae1234a012bb2/ddeabf842eb698ac-6a/s1280x1920/dc344fc6c1a1b50bf7ac039b8451cc7a57d727a1.gifv",
+    "thumbnail": "assets/light_moments.jpg",
+    "pixels": [
+      640,
+      1280
+    ],
+    "artist": "Waneella",
+    "note": {
+      "alt": "A bright urban stairway with Japanese shop signs, hanging lanterns, overhead cables and blue sky.",
+      "description": "Sunlight falls over concrete stairs and layered shop signs. Lanterns, wires and balconies frame patches of blue sky, giving a busy corner of the city a light, unhurried atmosphere.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "seashore",
+    "title": "Seashore",
+    "source": "https://waneella.tumblr.com/post/729923261853564928/seashore-patreon-youtube",
+    "image": "https://64.media.tumblr.com/5cc22d7a8c9e213c106f5e4b40977bf9/e041c773539a46e1-b2/s540x810/66dd505bf2847d2a47251582ad82a02b9874531b.gifv",
+    "thumbnail": "assets/seashore.jpg",
+    "pixels": [
+      432,
+      768
+    ],
+    "artist": "Waneella",
+    "note": {
+      "alt": "A sunlit street with railings, vending machines, apartment balconies and a glimpse of water beyond.",
+      "description": "Railings and apartment balconies frame a bright street near the water. Vending machines and overhead wires bring familiar city details into a scene opened up by light, greenery and the distant shore.",
+      "credit": "Gallery description"
+    }
+  }
+]

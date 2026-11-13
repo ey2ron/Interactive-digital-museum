@@ -11,7 +11,7 @@ const mobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
 const touchLayout = matchMedia('(pointer: coarse)');
 const portraitLayout = matchMedia('(orientation: portrait)');
 const base = new URL('.', document.baseURI).pathname;
-let tour, artworks = [], renderer, camera, scene, ready = false, current = 0, desired = 0;
+let tour, artworks = [], collectionArtworks = [], renderer, camera, scene, ready = false, current = 0, desired = 0;
 let lastTime = performance.now(), lastDrawn = -1, lastCaption = '', resizePending = true;
 const position = new THREE.Vector3(), quaternion = new THREE.Quaternion();
 const loading = $('loading');
@@ -213,7 +213,7 @@ $('close-collection').addEventListener('click', () => dismissView());
 $('collection').addEventListener('click', event => {
   if (event.target.closest('button, a, .collection-head, .detail-copy, .detail-toolbar, .collection-note, .credits, #art-grid article')) return;
   if (detailIndex >= 0) {
-    const rect = imageRect($('detail-image'), artworks[detailIndex]);
+    const rect = imageRect($('detail-image'), collectionArtworks[detailIndex]);
     if (event.clientX >= rect.x && event.clientX <= rect.x + rect.width &&
         event.clientY >= rect.y && event.clientY <= rect.y + rect.height) return;
   }
@@ -255,18 +255,25 @@ function showFallback(message) {
   if (reduced) openCollection();
 }
 function createIndex() {
-  for (const art of artworks) {
+  for (const art of collectionArtworks) {
     const article = document.createElement('article');
-    const view = document.createElement('button'); view.type = 'button'; view.className = 'artwork-card';
+    const view = document.createElement('a'); view.className = 'artwork-card-media';
+    view.href = art.source; view.target = '_blank'; view.rel = 'noopener noreferrer';
     view.dataset.artId = art.id;
-    view.setAttribute('aria-label', `View ${art.title} by Waneella`);
+    view.setAttribute('aria-label', `View ${art.title} on Waneella’s site (opens in a new tab)`);
     const image = document.createElement('img');
     image.src = base + art.thumbnail; image.alt = art.note.alt; image.loading = 'lazy';
-    const number = document.createElement('span'); number.className = 'eyebrow'; number.textContent = String(artworks.indexOf(art) + 1).padStart(2, '0');
-    const title = document.createElement('h3'); title.textContent = art.title;
-    const source = document.createElement('a'); source.href = art.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.textContent = 'Waneella · Original artwork ↗';
-    view.append(image, number, title); view.addEventListener('click', () => openArtwork(art, 'index', view));
-    article.append(view, source); $('art-grid').append(article);
+    const copy = document.createElement('div'); copy.className = 'artwork-card-copy';
+    const title = document.createElement('h3');
+    const titleLink = document.createElement('a'); titleLink.className = 'artwork-card-title'; titleLink.textContent = art.title;
+    titleLink.href = art.source; titleLink.target = '_blank'; titleLink.rel = 'noopener noreferrer';
+    title.append(titleLink);
+    const artist = document.createElement('p'); artist.className = 'artwork-card-artist'; artist.textContent = 'Waneella · Pixel art';
+    const description = document.createElement('p'); description.className = 'artwork-card-description'; description.textContent = art.note.description;
+    const source = document.createElement('a'); source.href = art.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.textContent = 'Original artwork by Waneella ↗';
+    copy.append(title, artist, description, source);
+    view.append(image);
+    article.append(view, copy); $('art-grid').append(article);
   }
 }
 
@@ -326,11 +333,11 @@ function animateArtwork(art, sourceRect) {
   animateView(document.querySelector('.detail-toolbar'), [{ opacity: 0 }, { opacity: 1 }], { duration: 280 });
 }
 function renderArtwork(sourceRect) {
-  const art = artworks[detailIndex];
+  const art = collectionArtworks[detailIndex];
   $('detail-image').src = base + art.thumbnail;
   $('detail-image').alt = art.note.alt;
   $('detail-title').textContent = art.title;
-  $('detail-number').textContent = `WORK ${String(detailIndex + 1).padStart(2, '0')} / ${artworks.length}`;
+  $('detail-number').textContent = '';
   $('detail-description').textContent = art.note.description;
   $('detail-credit').textContent = art.note.credit;
   $('detail-note-source').hidden = !art.note.source;
@@ -338,8 +345,8 @@ function renderArtwork(sourceRect) {
   else $('detail-note-source').removeAttribute('href');
   $('detail-source').href = art.source;
   $('previous-artwork').disabled = detailIndex === 0;
-  $('next-artwork').disabled = detailIndex === artworks.length - 1;
-  $('detail-status').textContent = `${art.title}. Artwork ${detailIndex + 1} of ${artworks.length}.`;
+  $('next-artwork').disabled = detailIndex === collectionArtworks.length - 1;
+  $('detail-status').textContent = art.title;
   animateArtwork(art, sourceRect);
 }
 function openArtwork(art, origin = 'tour', trigger = $('view-current-art')) {
@@ -349,7 +356,7 @@ function openArtwork(art, origin = 'tour', trigger = $('view-current-art')) {
   if (origin === 'index') indexScroll = $('collection').scrollTop;
   else openCollection();
   detailOrigin = origin; detailTrigger = trigger;
-  detailIndex = artworks.indexOf(art);
+  detailIndex = collectionArtworks.indexOf(art);
   $('index-view').hidden = true; $('artwork-detail').hidden = false;
   $('collection').classList.add('viewing-artwork');
   $('collection').setAttribute('aria-labelledby', 'detail-title');
@@ -392,7 +399,7 @@ async function dismissView(destination = detailIndex >= 0 && detailOrigin === 'i
 function browseArtwork(direction) {
   if (dismissing) return;
   const index = detailIndex + direction;
-  if (index < 0 || index >= artworks.length) return;
+  if (index < 0 || index >= collectionArtworks.length) return;
   detailIndex = index; renderArtwork();
   // Avoid leaving focus on a button that becomes disabled at an endpoint.
   if (document.activeElement.disabled) $('detail-title').focus({ preventScroll: true });
@@ -561,10 +568,11 @@ function dismissLoading() {
 
 async function init() {
   try {
-    const responses = await Promise.all([fetch(base+'assets/camera-tour.json'), fetch(base+'assets/artworks.json'), fetch(base+'assets/artwork-notes.json'), fetch(base+'assets/stops.json'), fetch(base+'assets/navigation.json')]);
+    const responses = await Promise.all([fetch(base+'assets/camera-tour.json'), fetch(base+'assets/artworks.json'), fetch(base+'assets/artwork-notes.json'), fetch(base+'assets/stops.json'), fetch(base+'assets/navigation.json'), fetch(base+'assets/collection-artworks.json')]);
     if (responses.some(r => !r.ok)) throw new Error('Gallery assets are missing. Run the Blender export first.');
-    const [tourData, artworkData, notes, stopData, navigationData] = await Promise.all(responses.map(r=>r.json()));
+    const [tourData, artworkData, notes, stopData, navigationData, collectionData] = await Promise.all(responses.map(r=>r.json()));
     tour = tourData; artworks = artworkData.map(art => ({ ...art, note: notes[art.id] }));
+    collectionArtworks = [...artworks, ...collectionData];
     viewingStops = stopData; arc = buildArc(tour);
     navigation = createNavigation(navigationData);
     createIndex(); createCheckpoints(); setNavigationMode(freeRoam);
