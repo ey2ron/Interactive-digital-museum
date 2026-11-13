@@ -574,7 +574,7 @@ function tick(now) {
   const currentArt = Math.min(artworkCount, Math.max(1, Math.round(barProgress * artworkCount)));
   $('progress-label').textContent = String(currentArt).padStart(2, '0');
   updateCheckpoints();
-  $('scroll-hint').textContent = freeRoam ? (touchLayout.matches ? 'JOYSTICK TO MOVE / DRAG RIGHT TO LOOK' : 'WASD TO MOVE / MOUSE TO LOOK / ESC TO RETURN / E TO VIEW ARTWORK') : compactLayout.matches || touchLayout.matches ? 'SWIPE TO EXPLORE · LEFT / RIGHT' : current < .02 ? 'SCROLL TO EXPLORE ↓' : 'SCROLL TO NEXT VIEW ↓';
+  $('scroll-hint').textContent = freeRoam ? (touchLayout.matches ? 'JOYSTICK TO MOVE / DRAG RIGHT TO LOOK' : 'WASD TO MOVE / MOUSE TO LOOK / ESC TO RETURN / E TO VIEW ARTWORK') : compactLayout.matches || touchLayout.matches ? 'SWIPE TO EXPLORE · LEFT / RIGHT' : current < .02 ? 'SCROLL TO EXPLORE' : 'SCROLL TO NEXT VIEW';
   updateCaption();
 }
 addEventListener('resize', () => { resizePending = true; if (ready) syncScroll(current); });
