@@ -134,3 +134,134 @@ footer #scroll-hint{width:auto;text-align:left}
   .free-roam footer{padding:12px 24px;gap:2px 20px}
   .free-roam #scroll-hint{font-size:8px;letter-spacing:1px}
 }
+
+/* Custom scroll bar inclined to the aesthetic of the site (dark charcoal, warm amber/gold, fine hairlines) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121717;
+  border-left: 1px solid #d5ba861f;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d5ba8655;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color .2s ease, box-shadow .2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #d5ba86aa;
+  box-shadow: 0 0 8px #d5ba864d;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--accent);
+  box-shadow: 0 0 12px #d5ba8680;
+}
+
+::-webkit-scrollbar-corner {
+  background: #121717;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Modal collection dialog scrollbar */
+#collection::-webkit-scrollbar-track {
+  background: #0f1515;
+  border-left: 1px solid #d5ba861f;
+}
+
+#collection::-webkit-scrollbar-thumb {
+  background-color: #d5ba8660;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+#collection::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent);
+  box-shadow: 0 0 10px #d5ba8655;
+}
+
+/* Artwork caption aside scrollbar: ultra-slim and unobtrusive */
+#art-caption::-webkit-scrollbar {
+  width: 4px;
+}
+
+#art-caption::-webkit-scrollbar-track {
+  background: transparent;
+  border-left: none;
+}
+
+#art-caption::-webkit-scrollbar-thumb {
+  background-color: #d5ba8640;
+  border-radius: 9999px;
+  border: none;
+}
+
+#art-caption::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent);
+  box-shadow: 0 0 6px #d5ba8655;
+}
+
+/* Artwork media zoom/scroll container */
+.artwork-media::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.artwork-media::-webkit-scrollbar-track {
+  background: transparent;
+  border-left: none;
+}
+
+.artwork-media::-webkit-scrollbar-thumb {
+  background-color: #d5ba8644;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.artwork-media::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent);
+}
+
+/* Standard W3C CSS scrollbar fallback for Firefox and conforming engines */
+@supports (-moz-appearance: none) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #d5ba8655 #121717;
+  }
+  #collection {
+    scrollbar-color: #d5ba8666 #0f1515;
+  }
+  #art-caption,
+  .artwork-media {
+    scrollbar-width: thin;
+    scrollbar-color: #d5ba8640 transparent;
+  }
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #d5ba8655 #121717;
+  }
+  #collection {
+    scrollbar-color: #d5ba8666 #0f1515;
+  }
+  #art-caption,
+  .artwork-media {
+    scrollbar-width: thin;
+    scrollbar-color: #d5ba8640 transparent;
+  }
+}
+
