@@ -100,6 +100,12 @@ body.collection-open header,body.collection-open footer,body.collection-open #to
 
 /* A loose rhythm of larger scenes and smaller, inset works. */
 #collection:not(.viewing-artwork){padding-inline:clamp(24px,5vw,100px)}
+.collection-intro{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.collection-intro .collection-note{max-width:60ch}
+#toggle-collection-motion{flex-shrink:0;min-height:44px;padding:10px 0;font-size:11px;color:var(--accent);border-bottom:1px solid #d5ba8655}
+#art-grid .artwork-card-media{position:relative}
+#art-grid .artwork-card-media video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated;pointer-events:none}
+@media(max-width:760px){.collection-intro{align-items:flex-start;flex-direction:column;gap:0}}
 #art-grid{display:flex;flex-direction:column;gap:clamp(72px,7vw,110px);width:100%;max-width:1500px;margin:clamp(48px,5vw,76px) auto 0}
 #art-grid article{display:grid;grid-template-columns:minmax(0,var(--media-column,1.1fr)) minmax(290px,var(--copy-column,.9fr));column-gap:clamp(40px,5vw,90px);align-items:start;width:var(--row-width,100%);align-self:var(--row-align,stretch)}
 #art-grid article:nth-child(even){grid-template-columns:minmax(290px,var(--copy-column,.9fr)) minmax(0,var(--media-column,1.1fr))}
@@ -133,6 +139,21 @@ body.collection-open header,body.collection-open footer,body.collection-open #to
 @media(max-width:760px){#art-grid article:nth-child(3n+2){width:88%;align-self:flex-end}#art-grid article:nth-child(3n){width:94%;align-self:flex-start}}
 @media(max-width:760px){#art-grid article+article::before{top:-32px}}
 @media(prefers-reduced-motion:reduce){#art-grid .artwork-card-media,#art-grid article img{transition:none}#art-grid .artwork-card-media:hover,#art-grid .artwork-card-media:hover img{transform:none}}
+
+/* A quiet end to the collection, with a path back to the artist. */
+#artist-about{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,7vw,110px);max-width:1500px;margin:clamp(80px,10vw,150px) auto 0;padding-top:clamp(40px,5vw,72px);border-top:1px solid #ddd4bb24}
+.artist-about-heading .eyebrow{color:var(--accent);font-size:10px;letter-spacing:.16em;margin:0 0 22px}
+#artist-about-title{font:400 clamp(40px,4.5vw,70px)/1.08 Georgia,serif;letter-spacing:-.04em;margin:0 0 14px}
+.artist-medium{color:var(--muted);font-size:13px;margin:0}
+.artist-about-copy>p{font-size:15px;line-height:1.85;color:#cfcec5;max-width:58ch;margin:0 0 18px}
+.artist-about-copy .artist-bio-source{font-size:10px;color:var(--muted);margin:24px 0 32px}
+.artist-bio-source a{color:inherit;text-underline-offset:4px}
+.artist-socials{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 26px}
+.artist-socials a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:48px;padding:12px 0;border-bottom:1px solid #ddd4bb24;font-size:12px;text-decoration:none;color:#ded8c9;transition:color .2s,border-color .2s}
+.artist-socials a span{color:var(--accent);transition:transform .2s}
+.artist-socials a:hover{color:var(--accent);border-color:#d5ba8670}
+.artist-socials a:hover span{transform:translate(2px,-2px)}
+@media(max-width:760px){#artist-about{grid-template-columns:1fr;gap:28px;margin-top:80px;padding-top:36px}.artist-socials{grid-template-columns:repeat(2,minmax(0,1fr))}.artist-about-copy>p{font-size:14px}}
 
 /* One comfortably spaced checkpoint per artwork, with an entrance marker. */
 footer{display:grid;grid-template-columns:1fr auto;gap:6px 24px;padding:20px 42px 24px}

@@ -37,7 +37,29 @@
   </section>
   <dialog id="collection" aria-labelledby="collection-title">
     <div class="collection-head"><div><p class="eyebrow">WANEELLA / ARTWORK INDEX</p><h2 id="collection-title">The collection.</h2></div><button id="close-collection" aria-label="Close collection">Close ×</button></div>
-    <div id="index-view"><p class="collection-note">Explore the Waneella works in this collection. Select an artwork to visit its original post on Waneella’s site.</p><div id="art-grid"></div><p class="credits">Artworks © Waneella. Gallery descriptions are our own visual notes; adapted publisher notes link to their source.</p></div>
+    <div id="index-view">
+      <div class="collection-intro"><p class="collection-note">Moving worlds from Waneella’s YouTube channel. Linger over a silent loop, or select a scene to watch the full film with music by e.sanchillo.</p><button id="toggle-collection-motion" type="button" aria-pressed="false">Pause animations</button></div>
+      <p id="collection-motion-status" class="sr-only" role="status"></p>
+      <div id="art-grid"></div>
+      <section id="artist-about" aria-labelledby="artist-about-title">
+        <div class="artist-about-heading"><p class="eyebrow">ABOUT THE ARTIST</p><h2 id="artist-about-title">Waneella</h2><p class="artist-medium">Small pixels. Expansive worlds.</p></div>
+        <div class="artist-about-copy">
+          <p>Waneella is the pixel artist Valeriya Sanchilo. With a background in animation, she creates intricate urban scenes that bring the visual language of classic video games into richly detailed, atmospheric worlds.</p>
+          <p>Her work moves between illustrations, prints and ambient animations, with music by e.sanchillo. Her books <em>Decade</em> and <em>Pixelscapes</em> offer a closer look at her artwork and creative process.</p>
+          <p class="artist-bio-source">More about the artist at <a href="https://www.thamesandhudsonusa.com/contributors/waneella" target="_blank" rel="noopener noreferrer">Thames &amp; Hudson ↗</a></p>
+          <nav class="artist-socials" aria-label="Waneella’s official website and social links">
+            <a href="https://waneella.com/" target="_blank" rel="noopener noreferrer">Website <span aria-hidden="true">↗</span></a>
+            <a href="https://www.instagram.com/waneella/" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+            <a href="https://waneella.tumblr.com/" target="_blank" rel="noopener noreferrer">Tumblr <span aria-hidden="true">↗</span></a>
+            <a href="https://www.youtube.com/c/waneella" target="_blank" rel="noopener noreferrer">YouTube <span aria-hidden="true">↗</span></a>
+            <a href="https://x.com/waneella_" target="_blank" rel="noopener noreferrer">X / Twitter <span aria-hidden="true">↗</span></a>
+            <a href="https://bsky.app/profile/waneella.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky <span aria-hidden="true">↗</span></a>
+            <a href="https://www.patreon.com/waneella" target="_blank" rel="noopener noreferrer">Patreon <span aria-hidden="true">↗</span></a>
+          </nav>
+        </div>
+      </section>
+      <p class="credits">Artworks © Waneella. Gallery descriptions are our own visual notes; adapted publisher notes link to their source.</p>
+    </div>
     <section id="artwork-detail" aria-labelledby="detail-title" hidden>
       <div class="detail-toolbar"><button id="back-to-index" type="button">← All artworks</button></div>
       <div class="detail-layout">

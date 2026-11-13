@@ -7,7 +7,8 @@ const artworks = JSON.parse(fs.readFileSync(asset('artworks.json')));
 const notes = JSON.parse(fs.readFileSync(asset('artwork-notes.json')));
 const collectionExtras = JSON.parse(fs.readFileSync(asset('collection-artworks.json')));
 
-test('collection additions have complete local assets and remain outside the 3D tour', () => {
+test('twelve animated collection works have local previews and remain outside the 3D tour', () => {
+  assert.equal(collectionExtras.length, 12);
   const ids = new Set(artworks.map(art => art.id));
   for (const art of collectionExtras) {
     assert.ok(!ids.has(art.id), `Duplicate collection work: ${art.id}`);
@@ -15,11 +16,17 @@ test('collection additions have complete local assets and remain outside the 3D 
     assert.equal(art.slot, undefined, 'Collection additions have no gallery mesh');
     assert.equal(art.position, undefined, 'Collection additions have no tour position');
     assert.equal(art.artist, 'Waneella');
-    assert.equal(new URL(art.source).hostname, 'waneella.tumblr.com');
+    assert.equal(new URL(art.source).hostname, 'www.youtube.com');
+    assert.match(new URL(art.source).searchParams.get('v'), /^[\w-]{11}$/);
+    assert.equal(new URL(art.artworkSource).hostname, 'waneella.tumblr.com');
     assert.ok(art.pixels.length === 2 && art.pixels.every(value => Number.isInteger(value) && value > 0));
     const image = fs.readFileSync(new URL(`../public/${art.thumbnail}`, import.meta.url));
     assert.equal(image.readUInt16BE(0), 0xffd8, `${art.id} is a valid JPEG image`);
     assert.ok(image.length > 10000);
+    const preview = fs.readFileSync(new URL(`../public/${art.preview}`, import.meta.url));
+    assert.equal(preview.subarray(4, 8).toString(), 'ftyp');
+    assert.ok(preview.length < 2_000_000, `${art.id} exceeds the media budget`);
+    assert.ok(art.duration >= 8 && art.duration <= 12);
     assert.ok(art.note.alt.length > 40);
     assert.ok(art.note.description.length > 70);
     assert.equal(art.note.credit, 'Gallery description');

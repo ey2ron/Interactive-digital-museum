@@ -1,137 +1,253 @@
 [
   {
-    "id": "somewhere_outside",
-    "title": "Somewhere Outside",
-    "source": "https://waneella.tumblr.com/post/749673300944453632/somewhere-outside-patreon-youtube",
-    "image": "https://64.media.tumblr.com/68d36d5eb8d6a226e63ff756e180afc1/ec32325dc56582e0-ec/s1280x1920/f3fd5c2e2b673bbbac16bb91ebc606989d95fe20.gifv",
-    "thumbnail": "assets/somewhere_outside.jpg",
-    "pixels": [
-      720,
-      1440
-    ],
+    "id": "glass_cube",
+    "title": "Glass Cube",
     "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=5piIiFmF5l0",
+    "artworkSource": "https://waneella.tumblr.com/post/823854841603489792",
+    "mediaSource": "https://64.media.tumblr.com/887c3ae39507bd3f5672774e87de6248/3a20b1ac179fbb4d-18/s720/6e878e23593ecfb7973306267dc931d08e1c1e76.mov",
+    "preview": "assets/collection-motion/glass_cube.mp4",
+    "thumbnail": "assets/collection-motion/glass_cube.jpg",
+    "pixels": [
+      960,
+      480
+    ],
+    "duration": 9.5,
+    "excerptStart": 10.0,
     "note": {
-      "alt": "A cramped nighttime alley with red lanterns, food stalls and stacked air-conditioning units overhead.",
-      "description": "Red lanterns and small shop windows warm a narrow passage crowded with machinery. The view looks up through pipes and outdoor units, finding a welcoming glow inside the city’s tangled layers.",
+      "alt": "An amber-lit room enclosed by glass and structural beams, with a desk, monitors and shelves.",
+      "description": "Glass and metal frame a room filled with warm light. Desks, screens and shelves turn the enclosed space into a small inhabited world, with tiny movements revealing themselves as the scene unfolds.",
       "credit": "Gallery description"
     }
   },
   {
-    "id": "december",
-    "title": "December",
-    "source": "https://waneella.tumblr.com/post/736442095767896064/december-patreon-youtube",
-    "image": "https://64.media.tumblr.com/290c2c62f4219cdda107944dc3e2a3f4/2c22b79167ecdb46-bb/s1280x1920/d1b1bac02ad842932539b9bb7c487ba07b3f462f.gifv",
-    "thumbnail": "assets/december.jpg",
-    "pixels": [
-      720,
-      1440
-    ],
+    "id": "city_4",
+    "title": "City 4",
     "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=G91pUsel_4k",
+    "artworkSource": "https://waneella.tumblr.com/post/812225091963371520",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_tcjsnsAPer1rnbw6m_720.mp4",
+    "preview": "assets/collection-motion/city_4.mp4",
+    "thumbnail": "assets/collection-motion/city_4.jpg",
+    "pixels": [
+      960,
+      480
+    ],
+    "duration": 12.0,
+    "excerptStart": 8.0,
     "note": {
-      "alt": "A quiet city crossing with patches of snow, green shop signs and tall buildings beneath a clear blue sky.",
-      "description": "Patches of snow collect at the edges of a quiet crossing. A clear blue sky opens above the shopfronts and apartment blocks, letting winter daylight soften the dense geometry of the street.",
+      "alt": "A blue and violet city intersection with illuminated shop signs beneath a golden sky.",
+      "description": "Deep blue streets meet a golden sky in a city assembled from signs, stairs and stacked buildings. The wide view gives the architecture room to breathe while scattered lights keep the scene quietly alive.",
       "credit": "Gallery description"
     }
   },
   {
-    "id": "windy_path",
-    "title": "Windy Path",
-    "source": "https://waneella.tumblr.com/post/734363307468865536/windy-path-artbook-patreon-youtube",
-    "image": "https://64.media.tumblr.com/c0d42532e126a57947448abb47331002/00c2674969746c83-02/s1280x1920/856d136e8adfc28a8cd6bac366e50a054c50a3a4.gifv",
-    "thumbnail": "assets/windy_path.jpg",
-    "pixels": [
-      800,
-      1200
-    ],
+    "id": "no_sleep_again",
+    "title": "No Sleep Again",
     "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=zK9HSXrvUMg",
+    "artworkSource": "https://waneella.tumblr.com/post/791080113864327168",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_t0jkmfXeBA1rnbw6m_720.mp4",
+    "preview": "assets/collection-motion/no_sleep_again.mp4",
+    "thumbnail": "assets/collection-motion/no_sleep_again.jpg",
+    "pixels": [
+      960,
+      426
+    ],
+    "duration": 9.25,
+    "excerptStart": 10.0,
     "note": {
-      "alt": "A narrow stepped passage between dense buildings covered in cables, pipes and air-conditioning units.",
-      "description": "A steep passage winds between buildings layered with cables, vents and pipes. The close walls frame a pale opening in the distance, drawing the eye through a maze of small urban details.",
+      "alt": "A dim room crowded with old televisions, computer screens, a sofa and tangled everyday objects.",
+      "description": "A collection of screens glows inside a dim, cluttered room. Cables, shelves and familiar objects surround their cool light, holding the interior in the restless stillness of another sleepless night.",
       "credit": "Gallery description"
     }
   },
   {
-    "id": "streetlight",
-    "title": "Streetlight",
-    "source": "https://waneella.tumblr.com/post/733367042314567680/streetlight-artbook-patreon-youtube",
-    "image": "https://64.media.tumblr.com/08d78ccc8c1ad324b11328efd9e5bad9/6975607f5b2a1cfa-24/s1280x1920/a5dee478be88d79f20ae17db72d3c9aa0412c112.gifv",
-    "thumbnail": "assets/streetlight.jpg",
-    "pixels": [
-      648,
-      1152
-    ],
+    "id": "on_the_hill",
+    "title": "On The Hill",
     "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=7AnVttbtTvs",
+    "artworkSource": "https://waneella.tumblr.com/post/713869313627602945",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_rspcjt1ej01rnbw6m_480.mp4",
+    "preview": "assets/collection-motion/on_the_hill.mp4",
+    "thumbnail": "assets/collection-motion/on_the_hill.jpg",
+    "pixels": [
+      960,
+      480
+    ],
+    "duration": 12.0,
+    "excerptStart": 10.0,
     "note": {
-      "alt": "A small bedroom with a bed, plants, a desk and a television, washed in orange light from outside.",
-      "description": "Orange light stretches across a bed and onto the floor of a small room. A desk, plants and a television gather around its edges, turning an ordinary bedroom into a quiet pocket of evening warmth.",
+      "alt": "A quiet sloping street with a glowing corner shop, trees and apartment buildings in the dusk.",
+      "description": "A corner shop warms a quiet street beneath trees and apartment blocks. The road curves away into the distance, letting the lights of the neighbourhood draw a gentle path through the evening.",
       "credit": "Gallery description"
     }
   },
   {
-    "id": "endless_fall",
-    "title": "Endless Fall",
-    "source": "https://waneella.tumblr.com/post/732645807296299008/endless-fall-artbook-patreon-youtube",
-    "image": "https://64.media.tumblr.com/51b1ead086c737776c7708ecab7cef22/c38499c2fba289ac-72/s1280x1920/c8b64b303c69dc445a643a800163cd1cafdc75ab.gifv",
-    "thumbnail": "assets/endless_fall.jpg",
-    "pixels": [
-      810,
-      1620
-    ],
+    "id": "rose_waves",
+    "title": "Rose Waves",
     "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=sycRWW1aajo",
+    "artworkSource": "https://waneella.tumblr.com/post/700446837603254272",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_rl2zjb3Jc61rnbw6m_480.mp4",
+    "preview": "assets/collection-motion/rose_waves.mp4",
+    "thumbnail": "assets/collection-motion/rose_waves.jpg",
+    "pixels": [
+      960,
+      480
+    ],
+    "duration": 9.5,
+    "excerptStart": 12.0,
     "note": {
-      "alt": "An autumn alley with tangled branches, stairs, scattered leaves and walls covered in pipes and outdoor units.",
-      "description": "Fallen leaves gather around the steps of a tightly packed alley. Bare branches reach into the same space as pipes and cables, weaving the season into the city’s busy surfaces.",
+      "alt": "A city street with red lanterns, a large tree and layered buildings beneath a pink evening sky.",
+      "description": "A rose-coloured sky settles over lanterns, shop windows and a broad tree. Warm and cool lights gather along the street, giving this dense urban corner the softness of a passing evening.",
       "credit": "Gallery description"
     }
   },
   {
-    "id": "pale_moon",
-    "title": "Pale Moon",
-    "source": "https://waneella.tumblr.com/post/732102970483900416/pale-moon-artbook-patreon-youtube",
-    "image": "https://64.media.tumblr.com/4039d7d6861eae6805d84ea83d529d4d/5f8ccd0fe0aa02ec-f7/s1280x1920/185f7c4de513f4d0a358e73c13531f11db3abb79.gifv",
-    "thumbnail": "assets/pale_moon.jpg",
-    "pixels": [
-      900,
-      1500
-    ],
+    "id": "rain",
+    "title": "Rain",
     "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=Wq9IeRx3-F8",
+    "artworkSource": "https://waneella.tumblr.com/post/694868072512831488",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_rhwy72aONU1rnbw6m_480.mp4",
+    "preview": "assets/collection-motion/rain.mp4",
+    "thumbnail": "assets/collection-motion/rain.jpg",
+    "pixels": [
+      270,
+      540
+    ],
+    "duration": 8.75,
+    "excerptStart": 12.0,
     "note": {
-      "alt": "A pale moon above a dark street, with red buildings, glowing shops, utility poles and overhead cables.",
-      "description": "A pale moon hangs above dark shopfronts and red buildings. Utility poles and overhead wires divide the muted sky, while a few illuminated windows keep the street quietly awake.",
+      "alt": "A dark interior with red furniture, small screens and a tall window looking onto falling rain.",
+      "description": "Rain fills a tall window beyond the red and blue glow of a small interior. The room feels sheltered and close, while the moving weather outside makes its quiet details feel warmer.",
       "credit": "Gallery description"
     }
   },
   {
-    "id": "light_moments",
-    "title": "Light Moments",
-    "source": "https://waneella.tumblr.com/post/730375161096929281/light-moments-patreon-youtube",
-    "image": "https://64.media.tumblr.com/6d037291fa6580530a7ae1234a012bb2/ddeabf842eb698ac-6a/s1280x1920/dc344fc6c1a1b50bf7ac039b8451cc7a57d727a1.gifv",
-    "thumbnail": "assets/light_moments.jpg",
-    "pixels": [
-      640,
-      1280
-    ],
+    "id": "return",
+    "title": "Return",
     "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=vfOfspwiFQ0",
+    "artworkSource": "https://waneella.tumblr.com/post/690862613926674432",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_rfn2wiVUZ61rnbw6m_480.mp4",
+    "preview": "assets/collection-motion/return.mp4",
+    "thumbnail": "assets/collection-motion/return.jpg",
+    "pixels": [
+      960,
+      480
+    ],
+    "duration": 10.0,
+    "excerptStart": 10.0,
     "note": {
-      "alt": "A bright urban stairway with Japanese shop signs, hanging lanterns, overhead cables and blue sky.",
-      "description": "Sunlight falls over concrete stairs and layered shop signs. Lanterns, wires and balconies frame patches of blue sky, giving a busy corner of the city a light, unhurried atmosphere.",
+      "alt": "A railway platform with overhead structures, a vending machine and a pastel sky beyond the tracks.",
+      "description": "A railway platform opens towards tracks and a pale evening sky. Overhead beams and nearby buildings frame the view, leaving a quiet space that seems ready for a familiar journey home.",
       "credit": "Gallery description"
     }
   },
   {
-    "id": "seashore",
-    "title": "Seashore",
-    "source": "https://waneella.tumblr.com/post/729923261853564928/seashore-patreon-youtube",
-    "image": "https://64.media.tumblr.com/5cc22d7a8c9e213c106f5e4b40977bf9/e041c773539a46e1-b2/s540x810/66dd505bf2847d2a47251582ad82a02b9874531b.gifv",
-    "thumbnail": "assets/seashore.jpg",
-    "pixels": [
-      432,
-      768
-    ],
+    "id": "faraway_point",
+    "title": "Faraway Point",
     "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=H5fDPf2ExvA",
+    "artworkSource": "https://waneella.tumblr.com/post/671742367820382208",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_r4s90gmupc1rnbw6m_480.mp4",
+    "preview": "assets/collection-motion/faraway_point.mp4",
+    "thumbnail": "assets/collection-motion/faraway_point.jpg",
+    "pixels": [
+      960,
+      480
+    ],
+    "duration": 10.25,
+    "excerptStart": 10.0,
     "note": {
-      "alt": "A sunlit street with railings, vending machines, apartment balconies and a glimpse of water beyond.",
-      "description": "Railings and apartment balconies frame a bright street near the water. Vending machines and overhead wires bring familiar city details into a scene opened up by light, greenery and the distant shore.",
+      "alt": "A snowy city corner with glowing signs, red lanterns and a violet sky above tightly packed buildings.",
+      "description": "Snow gathers beneath illuminated signs and red lanterns. A distant glow softens the violet sky, turning a cold street corner into a place that feels both remote and quietly welcoming.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "nice_view",
+    "title": "Nice View",
+    "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=Vhap-9YhEWU",
+    "artworkSource": "https://waneella.tumblr.com/post/670373306825867264",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_r409lheUhm1rnbw6m_480.mp4",
+    "preview": "assets/collection-motion/nice_view.mp4",
+    "thumbnail": "assets/collection-motion/nice_view.jpg",
+    "pixels": [
+      960,
+      480
+    ],
+    "duration": 10.75,
+    "excerptStart": 10.0,
+    "note": {
+      "alt": "A teal city passage overlooking a huge orange sun, distant towers and hanging shop signs.",
+      "description": "A huge orange sun appears between dark teal buildings. Signs, railings and overhead structures frame the distant skyline, making an ordinary passage feel like a lookout over another world.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "dark_corners",
+    "title": "Dark Corners",
+    "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=XFR-iH3mxoU",
+    "artworkSource": "https://waneella.tumblr.com/post/666302382874017792",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_r1p21gx8Qe1rnbw6m_480.mp4",
+    "preview": "assets/collection-motion/dark_corners.mp4",
+    "thumbnail": "assets/collection-motion/dark_corners.jpg",
+    "pixels": [
+      960,
+      480
+    ],
+    "duration": 10.75,
+    "excerptStart": 12.0,
+    "note": {
+      "alt": "A shadowy control room filled with monitors, consoles, overhead cables and a red-lit doorway.",
+      "description": "Monitors and control panels break up the shadows of a tightly packed room. Cool screens and a red-lit doorway offer competing points of light, inviting a slow look into its darker corners.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "fragments",
+    "title": "Fragments",
+    "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=iiCtXPTywYk",
+    "artworkSource": "https://waneella.tumblr.com/post/663770213379096576",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_r09afhxrq61rnbw6m_480.mp4",
+    "preview": "assets/collection-motion/fragments.mp4",
+    "thumbnail": "assets/collection-motion/fragments.jpg",
+    "pixels": [
+      960,
+      480
+    ],
+    "duration": 8.75,
+    "excerptStart": 12.0,
+    "note": {
+      "alt": "A blue-lit urban courtyard with hanging cables, a glass roof and illuminated shops beyond a wet floor.",
+      "description": "Cool light filters through a roof of glass and cables into an enclosed urban space. Shopfronts and reflections scatter small fragments of colour across the wet ground below.",
+      "credit": "Gallery description"
+    }
+  },
+  {
+    "id": "heat",
+    "title": "Heat",
+    "artist": "Waneella",
+    "source": "https://www.youtube.com/watch?v=W1RvvQQnifM",
+    "artworkSource": "https://waneella.tumblr.com/post/657772849278435328",
+    "mediaSource": "https://va.media.tumblr.com/tumblr_qwup9mWN6y1rnbw6m_480.mp4",
+    "preview": "assets/collection-motion/heat.mp4",
+    "thumbnail": "assets/collection-motion/heat.jpg",
+    "pixels": [
+      960,
+      480
+    ],
+    "duration": 9.25,
+    "excerptStart": 12.0,
+    "note": {
+      "alt": "A warm amber room with a small computer, shelves, plants, overhead pipes and a room beyond.",
+      "description": "Amber light gathers around a small computer and shelves of everyday objects. Plants, pipes and an open doorway give the room depth, while its steady glow turns a busy interior into a place to linger.",
       "credit": "Gallery description"
     }
   }

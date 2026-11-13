@@ -4,6 +4,7 @@ import { buildArc, sampleStops, scrollProgress, clamp01, nearestStop, checkpoint
 import { createNavigation, createPortraitFlight, smoothTravel, nearestViewingStop } from './navigation.js';
 import { createFreeRoam } from './free-roam.js';
 import { connectJoystick } from './joystick.js';
+import { createCollectionPlayback } from './collection-playback.js';
 
 const $ = id => document.getElementById(id);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -11,7 +12,8 @@ const mobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
 const touchLayout = matchMedia('(pointer: coarse)');
 const portraitLayout = matchMedia('(orientation: portrait)');
 const base = new URL('.', document.baseURI).pathname;
-let tour, artworks = [], collectionArtworks = [], renderer, camera, scene, ready = false, current = 0, desired = 0;
+let tour, artworks = [], collectionArtworks = [], detailArtworks = [], renderer, camera, scene, ready = false, current = 0, desired = 0;
+const collectionPlayback = createCollectionPlayback({ root: $('collection'), toggle: $('toggle-collection-motion'), status: $('collection-motion-status'), reducedMotion: reduced });
 let lastTime = performance.now(), lastDrawn = -1, lastCaption = '', resizePending = true;
 const position = new THREE.Vector3(), quaternion = new THREE.Quaternion();
 const loading = $('loading');
@@ -205,21 +207,23 @@ function openCollection() {
     syncScroll(current);
     document.body.classList.add('collection-open');
     $('collection').showModal();
+    collectionPlayback.setActive(true);
     animateIndex();
   }
 }
 for (const id of ['open-collection', 'fallback-collection']) $(id).addEventListener('click', openCollection);
 $('close-collection').addEventListener('click', () => dismissView());
 $('collection').addEventListener('click', event => {
-  if (event.target.closest('button, a, .collection-head, .detail-copy, .detail-toolbar, .collection-note, .credits, #art-grid article')) return;
+  if (event.target.closest('button, a, .collection-head, .detail-copy, .detail-toolbar, .collection-note, .credits, #art-grid article, #artist-about')) return;
   if (detailIndex >= 0) {
-    const rect = imageRect($('detail-image'), collectionArtworks[detailIndex]);
+    const rect = imageRect($('detail-image'), detailArtworks[detailIndex]);
     if (event.clientX >= rect.x && event.clientX <= rect.x + rect.width &&
         event.clientY >= rect.y && event.clientY <= rect.y + rect.height) return;
   }
   dismissView();
 });
 $('collection').addEventListener('close', () => {
+  collectionPlayback.setActive(false);
   dismissing = false;
   $('collection').classList.remove('view-exiting', 'closing-overlay');
   stopViewAnimations();
@@ -245,7 +249,8 @@ function showFallback(message) {
   freeRoam = false; document.body.classList.remove('free-roam'); $('roam-help').hidden = true;
   ready = false; transition = null; clearTimeout(settleTimer);
   $('toggle-roam').hidden = true;
-  $('loading-message').textContent = message;
+  const loadingMessage = $('loading-message');
+  if (loadingMessage) loadingMessage.textContent = message;
   loading.classList.remove('loading-exiting');
   loading.classList.add('loaded');
   loading.setAttribute('aria-hidden', 'true');
@@ -260,20 +265,29 @@ function createIndex() {
     const view = document.createElement('a'); view.className = 'artwork-card-media';
     view.href = art.source; view.target = '_blank'; view.rel = 'noopener noreferrer';
     view.dataset.artId = art.id;
-    view.setAttribute('aria-label', `View ${art.title} on Waneella’s site (opens in a new tab)`);
+    view.setAttribute('aria-label', `Watch ${art.title} on Waneella’s YouTube channel (opens in a new tab)`);
     const image = document.createElement('img');
     image.src = base + art.thumbnail; image.alt = art.note.alt; image.loading = 'lazy';
+    [image.width, image.height] = art.pixels;
+    image.decoding = 'async';
+    const video = document.createElement('video');
+    video.muted = true; video.defaultMuted = true; video.loop = true; video.playsInline = true;
+    video.preload = 'none'; video.hidden = true; video.disablePictureInPicture = true;
+    video.setAttribute('aria-hidden', 'true'); video.tabIndex = -1;
+    video.poster = base + art.thumbnail;
+    [video.width, video.height] = art.pixels;
     const copy = document.createElement('div'); copy.className = 'artwork-card-copy';
     const title = document.createElement('h3');
     const titleLink = document.createElement('a'); titleLink.className = 'artwork-card-title'; titleLink.textContent = art.title;
     titleLink.href = art.source; titleLink.target = '_blank'; titleLink.rel = 'noopener noreferrer';
     title.append(titleLink);
-    const artist = document.createElement('p'); artist.className = 'artwork-card-artist'; artist.textContent = 'Waneella · Pixel art';
+    const artist = document.createElement('p'); artist.className = 'artwork-card-artist'; artist.textContent = 'Waneella · Animated pixel art';
     const description = document.createElement('p'); description.className = 'artwork-card-description'; description.textContent = art.note.description;
-    const source = document.createElement('a'); source.href = art.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.textContent = 'Original artwork by Waneella ↗';
+    const source = document.createElement('a'); source.href = art.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.textContent = 'Watch the full film on YouTube ↗';
     copy.append(title, artist, description, source);
-    view.append(image);
+    view.append(image, video);
     article.append(view, copy); $('art-grid').append(article);
+    collectionPlayback.add(video, base + art.preview, view);
   }
 }
 
@@ -333,7 +347,7 @@ function animateArtwork(art, sourceRect) {
   animateView(document.querySelector('.detail-toolbar'), [{ opacity: 0 }, { opacity: 1 }], { duration: 280 });
 }
 function renderArtwork(sourceRect) {
-  const art = collectionArtworks[detailIndex];
+  const art = detailArtworks[detailIndex];
   $('detail-image').src = base + art.thumbnail;
   $('detail-image').alt = art.note.alt;
   $('detail-title').textContent = art.title;
@@ -345,7 +359,7 @@ function renderArtwork(sourceRect) {
   else $('detail-note-source').removeAttribute('href');
   $('detail-source').href = art.source;
   $('previous-artwork').disabled = detailIndex === 0;
-  $('next-artwork').disabled = detailIndex === collectionArtworks.length - 1;
+  $('next-artwork').disabled = detailIndex === detailArtworks.length - 1;
   $('detail-status').textContent = art.title;
   animateArtwork(art, sourceRect);
 }
@@ -356,7 +370,9 @@ function openArtwork(art, origin = 'tour', trigger = $('view-current-art')) {
   if (origin === 'index') indexScroll = $('collection').scrollTop;
   else openCollection();
   detailOrigin = origin; detailTrigger = trigger;
-  detailIndex = collectionArtworks.indexOf(art);
+  detailArtworks = origin === 'index' ? collectionArtworks : artworks;
+  detailIndex = detailArtworks.indexOf(art);
+  collectionPlayback.setActive(false);
   $('index-view').hidden = true; $('artwork-detail').hidden = false;
   $('collection').classList.add('viewing-artwork');
   $('collection').setAttribute('aria-labelledby', 'detail-title');
@@ -369,6 +385,7 @@ function closeArtwork(restore = true) {
   detailIndex = -1;
   $('index-view').hidden = false; $('artwork-detail').hidden = true;
   $('collection').classList.remove('viewing-artwork');
+  collectionPlayback.setActive($('collection').open);
   $('collection').setAttribute('aria-labelledby', 'collection-title');
   $('close-collection').setAttribute('aria-label', 'Close collection and return to virtual museum');
   if (restore) {
@@ -399,7 +416,7 @@ async function dismissView(destination = detailIndex >= 0 && detailOrigin === 'i
 function browseArtwork(direction) {
   if (dismissing) return;
   const index = detailIndex + direction;
-  if (index < 0 || index >= collectionArtworks.length) return;
+  if (index < 0 || index >= detailArtworks.length) return;
   detailIndex = index; renderArtwork();
   // Avoid leaving focus on a button that becomes disabled at an endpoint.
   if (document.activeElement.disabled) $('detail-title').focus({ preventScroll: true });
@@ -572,7 +589,7 @@ async function init() {
     if (responses.some(r => !r.ok)) throw new Error('Gallery assets are missing. Run the Blender export first.');
     const [tourData, artworkData, notes, stopData, navigationData, collectionData] = await Promise.all(responses.map(r=>r.json()));
     tour = tourData; artworks = artworkData.map(art => ({ ...art, note: notes[art.id] }));
-    collectionArtworks = [...artworks, ...collectionData];
+    collectionArtworks = collectionData;
     viewingStops = stopData; arc = buildArc(tour);
     navigation = createNavigation(navigationData);
     createIndex(); createCheckpoints(); setNavigationMode(freeRoam);
